@@ -1,0 +1,576 @@
+---
+const TOTAL = 21;
+
+const ratios = [
+  'tall','wide','sq','sq','tall',
+  'wide','sq','tall','sq','wide',
+  'sq','sq','wide','tall','sq',
+  'wide','sq','sq','tall','wide','sq'
+];
+
+const categories = [
+  'Techo','Portón','Pérgola','Puerta','Techo',
+  'Pérgola','Portón','Techo','Puerta','Portón',
+  'Techo','Pérgola','Portón','Techo','Puerta',
+  'Pérgola','Techo','Portón','Pérgola','Techo','Puerta'
+];
+
+const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
+  const num = String(i + 1).padStart(2, '0');
+  const r = ratios[i];
+  const h = r === 'tall' ? 340 : r === 'wide' ? 200 : 220;
+  return {
+    id: String(i + 1),
+    num,
+    src: `/images/gallery/gallery-${num}.jpg`,
+    cat: categories[i],
+    height: h,
+    ratio: r,
+  };
+});
+---
+
+<section id="galeria" class="gallery-section">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <span class="section-tag">Galería</span>
+      <h2 class="section-title">
+        Nuestro trabajo<br/>
+        <em>habla por sí solo</em>
+      </h2>
+      <p class="section-sub">21 proyectos reales. Todos en Valencia y Carabobo.</p>
+    </div>
+
+    <div class="gallery-filters" role="tablist" data-reveal>
+      {['Todos','Techos','Portones','Pérgolas','Puertas'].map((cat, i) => (
+        <button
+          class:list={['filter-btn', i === 0 && 'active']}
+          data-filter={cat === 'Todos' ? 'all' : cat.slice(0,-1)}
+          role="tab"
+          aria-selected={i === 0}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <div class="masonry-container" id="masonry-container">
+      <div class="masonry-track" id="masonry-track">
+        {masonryItems.map((item) => (
+          <button
+            class="masonry-item"
+            data-id={item.id}
+            data-category={item.cat}
+            data-src={item.src}
+            data-height={item.height}
+            aria-label={`Ver imagen ${item.num} — ${item.cat}`}
+          >
+            <div class="masonry-db-outer">
+              <div class="masonry-img-wrap">
+                <img
+                  src={item.src}
+                  alt={`Trabajo de herrería ${item.cat.toLowerCase()} — Flamingo Services Valencia`}
+                  loading="lazy"
+                  decoding="async"
+                  onerror="this.closest('.masonry-item').classList.add('placeholder')"
+                />
+                <div class="item-overlay">
+                  <span class="item-cat">{item.cat}</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="item-placeholder" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <span>{item.cat} {item.num}</span>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <p class="gallery-hint">Clic en cualquier imagen para ampliar</p>
+  </div>
+</section>
+
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Visor de imágenes" hidden>
+  <button class="lb-close" id="lb-close" aria-label="Cerrar">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M18 6L6 18M6 6l12 12"/>
+    </svg>
+  </button>
+  <button class="lb-nav lb-prev" id="lb-prev" aria-label="Anterior">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+  </button>
+  <div class="lb-content">
+    <img id="lb-img" src="" alt="" />
+    <div class="lb-meta">
+      <span id="lb-cat" class="lb-cat-tag"></span>
+      <span id="lb-count" class="lb-count"></span>
+    </div>
+  </div>
+  <button class="lb-nav lb-next" id="lb-next" aria-label="Siguiente">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M9 18l6-6-6-6"/>
+    </svg>
+  </button>
+</div>
+
+<script>
+  const allItems = document.querySelectorAll<HTMLButtonElement>('.masonry-item');
+  const track = document.getElementById('masonry-track')!;
+  const GAP = 6;
+
+  let columns = 4;
+  let colWidth = 0;
+
+  const getColumnCount = (w: number) => {
+    if (w < 600) return 2;
+    if (w < 900) return 3;
+    return 4;
+  };
+
+  const layout = (visible: HTMLButtonElement[]) => {
+    const rect = track.parentElement!.getBoundingClientRect();
+    const cols = getColumnCount(rect.width);
+    const cw = (rect.width - (cols - 1) * GAP) / cols;
+
+    columns = cols;
+    colWidth = cw;
+
+    const colHeights = new Array(cols).fill(0);
+
+    visible.forEach((item, idx) => {
+      const col = colHeights.indexOf(Math.min(...colHeights));
+      const x = col * (cw + GAP);
+      const h = parseInt(item.dataset.height ?? '200', 10);
+      const y = colHeights[col];
+
+      item.style.width = `${cw}px`;
+      item.style.height = `${h}px`;
+      item.style.transform = `translateX(${x}px) translateY(${y}px)`;
+      item.dataset.col = String(col);
+
+      colHeights[col] += h + GAP;
+    });
+
+    track.style.height = `${Math.max(...colHeights)}px`;
+  };
+
+  const preload = (items: HTMLButtonElement[]) => {
+    const urls = Array.from(items).map(i => i.dataset.src!).filter(Boolean);
+    return Promise.all(urls.map(src => new Promise(resolve => {
+      const img = new Image();
+      img.src = src;
+      img.onload = img.onerror = () => resolve(null);
+    })));
+  };
+
+  const animateIn = (items: HTMLButtonElement[]) => {
+    items.forEach((item, idx) => {
+      item.style.opacity = '0';
+      item.style.filter = 'blur(10px)';
+      const delay = idx * 0.05;
+      item.style.transition = `opacity 0.8s cubic-bezier(0.32,0.72,0,1) ${delay}s, filter 0.8s cubic-bezier(0.32,0.72,0,1) ${delay}s`;
+      requestAnimationFrame(() => {
+        item.style.opacity = '1';
+        item.style.filter = 'blur(0px)';
+      });
+    });
+  };
+
+  const initMasonry = async () => {
+    await preload(allItems);
+    const visible = Array.from(allItems).filter(i => i.style.display !== 'none');
+    layout(visible);
+    animateIn(visible);
+  };
+
+  const ro = new ResizeObserver(() => {
+    const visible = Array.from(allItems).filter(i => i.style.display !== 'none');
+    visible.forEach(i => { i.style.transition = 'none'; });
+    layout(visible);
+    requestAnimationFrame(() => {
+      visible.forEach(i => { i.style.transition = ''; });
+    });
+  });
+  ro.observe(track.parentElement!);
+
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
+
+      const filter = btn.dataset.filter!;
+      allItems.forEach(item => {
+        const match = filter === 'all' || item.dataset.category === filter;
+        item.style.display = match ? '' : 'none';
+      });
+
+      const visible = Array.from(allItems).filter(i => i.style.display !== 'none');
+      visible.forEach(i => { i.style.opacity = '0'; i.style.filter = 'blur(6px)'; });
+      layout(visible);
+      requestAnimationFrame(() => {
+        visible.forEach((item, idx) => {
+          item.style.transition = `opacity 0.5s cubic-bezier(0.32,0.72,0,1) ${idx * 0.05}s, filter 0.5s cubic-bezier(0.32,0.72,0,1) ${idx * 0.05}s`;
+          item.style.opacity = '1';
+          item.style.filter = 'blur(0px)';
+        });
+      });
+    });
+  });
+
+  const lightbox  = document.getElementById('lightbox')!;
+  const lbImg     = document.getElementById('lb-img') as HTMLImageElement;
+  const lbCat     = document.getElementById('lb-cat')!;
+  const lbCount   = document.getElementById('lb-count')!;
+  const lbClose   = document.getElementById('lb-close')!;
+  const lbPrev    = document.getElementById('lb-prev')!;
+  const lbNext    = document.getElementById('lb-next')!;
+
+  let current = 0;
+  let visibleItems: HTMLButtonElement[] = [];
+
+  const open = (idx: number) => {
+    visibleItems = Array.from(allItems).filter(i => i.style.display !== 'none');
+    current = idx;
+    update();
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lbImg.focus();
+  };
+
+  const close = () => {
+    lightbox.hidden = true;
+    document.body.style.overflow = '';
+  };
+
+  const update = () => {
+    const item = visibleItems[current];
+    if (!item) return;
+    lbImg.src = item.dataset.src ?? '';
+    lbImg.alt = item.getAttribute('aria-label') ?? '';
+    lbCat.textContent = item.dataset.category ?? '';
+    lbCount.textContent = `${current + 1} / ${visibleItems.length}`;
+  };
+
+  const prev = () => { current = (current - 1 + visibleItems.length) % visibleItems.length; update(); };
+  const next = () => { current = (current + 1) % visibleItems.length; update(); };
+
+  allItems.forEach((item, i) => {
+    item.addEventListener('click', () => open(i));
+  });
+
+  lbClose.addEventListener('click', close);
+  lbPrev.addEventListener('click', prev);
+  lbNext.addEventListener('click', next);
+
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) close(); });
+
+  document.addEventListener('keydown', (e) => {
+    if (lightbox.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+
+  initMasonry();
+</script>
+
+<style>
+  .gallery-section {
+    padding: var(--section-py) 2rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    max-width: 600px;
+    margin-bottom: 3rem;
+  }
+
+  .section-tag {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-copper);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    color: var(--color-forge-smoke);
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin-bottom: 1rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--color-copper); }
+
+  .section-sub {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-forge-muted);
+  }
+
+  .gallery-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-btn {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-forge-muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), background 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), border-color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+  }
+
+  .filter-btn:hover { color: var(--color-forge-smoke); }
+
+  .filter-btn.active {
+    color: white;
+    background: var(--color-copper);
+    border-color: var(--color-copper);
+  }
+
+  .masonry-container {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .masonry-track {
+    position: relative;
+    width: 100%;
+  }
+
+  .masonry-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--color-forge-iron);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    will-change: transform, opacity, filter;
+  }
+
+  .masonry-item:hover {
+    z-index: 2;
+  }
+
+  .masonry-db-outer {
+    width: 100%;
+    height: 100%;
+    padding: 0.25rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: calc(10px + 0.25rem);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), background 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+  }
+
+  .masonry-item:hover .masonry-db-outer {
+    border-color: rgba(232, 80, 26, 0.25);
+    background: rgba(232, 80, 26, 0.04);
+  }
+
+  .masonry-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+  }
+
+  .masonry-item:hover .masonry-img-wrap {
+    transform: scale(0.96);
+  }
+
+  .masonry-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .item-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 60%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0.875rem;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+  }
+
+  .masonry-item:hover .item-overlay { opacity: 1; }
+
+  .item-cat {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-forge-smoke);
+  }
+
+  .item-overlay svg { color: var(--color-copper); }
+
+  .masonry-item.placeholder img { display: none; }
+
+  .item-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    pointer-events: none;
+  }
+
+  .masonry-item:not(.placeholder) .item-placeholder { display: none; }
+
+  .item-placeholder span {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    color: var(--color-forge-steel);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .gallery-hint {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-forge-subtle);
+    letter-spacing: 0.04em;
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(5, 5, 5, 0.97);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .lightbox[hidden] { display: none; }
+
+  .lb-content {
+    max-width: min(90vw, 1000px);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  #lb-img {
+    max-width: 100%;
+    max-height: calc(90vh - 60px);
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .lb-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.25rem;
+  }
+
+  .lb-cat-tag {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-copper);
+  }
+
+  .lb-count {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--color-forge-muted);
+  }
+
+  .lb-close {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--color-forge-smoke);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+    z-index: 10;
+  }
+
+  .lb-close:hover { background: rgba(255,255,255,0.15); }
+
+  .lb-nav {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--color-forge-smoke);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+  }
+
+  .lb-nav:hover { background: var(--color-copper); color: white; border-color: var(--color-copper); }
+
+  @media (max-width: 640px) {
+    .masonry-item { transition-duration: 0.3s !important; }
+    .lb-nav { display: none; }
+  }
+</style>

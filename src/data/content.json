@@ -1,0 +1,181 @@
+{
+  "business": {
+    "name": "Flamingo Services",
+    "tagline": "Herrería de precisión para tu hogar",
+    "subtag": "30 años forjando confianza en Venezuela",
+    "description": "Taller de herrería con más de 30 años de experiencia en Valencia, Carabobo. Techos para estacionamiento, pérgolas, portones y puertas de seguridad con instalación incluida.",
+    "experience_years": 30,
+    "delivery_days": 7
+  },
+  "contact": {
+    "phone": "0424 471 5866",
+    "whatsapp": "+584244715866",
+    "whatsapp_message": "Hola, me interesa solicitar un presupuesto",
+    "instagram": "https://www.instagram.com/flamingoservices_/",
+    "facebook": "https://www.facebook.com/profile.php?id=61554200556790",
+    "address": "Calle 94 Cantaura, Valencia 2001, Carabobo, Venezuela"
+  },
+  "coverage": [
+    { "city": "Valencia", "state": "Carabobo", "primary": true, "distance_km": 0 },
+    { "city": "Maracay", "state": "Aragua", "primary": false, "distance_km": 80 },
+    { "city": "Caracas", "state": "Distrito Capital", "primary": false, "distance_km": 170 },
+    { "city": "Barquisimeto", "state": "Lara", "primary": false, "distance_km": 170 },
+    { "city": "Puerto Cabello", "state": "Carabobo", "primary": false, "distance_km": 55 },
+    { "city": "Guacara", "state": "Carabobo", "primary": false, "distance_km": 20 }
+  ],
+  "services": [
+    {
+      "id": "techos",
+      "name": "Techos para Estacionamiento",
+      "short": "Techos",
+      "description": "Protege tu vehículo de la lluvia y el sol con nuestra cobertura de estacionamiento diseñada para resistir condiciones climáticas adversas.",
+      "icon": "car-garage",
+      "pricing": [
+        { "label": "1 Vehículo", "price": 1250, "currency": "USD", "prefix": "Desde" },
+        { "label": "2 Vehículos", "price": 1970, "currency": "USD", "prefix": "Desde" },
+        { "label": "3+ Vehículos", "price": null, "currency": "USD", "prefix": "Presupuesto personalizado" }
+      ],
+      "features": [
+        "Lámina de aluminio de alta resistencia",
+        "Disponible en múltiples colores",
+        "Resistente al sol y lluvia tropical",
+        "Instalación incluida",
+        "Pintura anticorrosiva incluida",
+        "Entrega en menos de 7 días"
+      ]
+    },
+    {
+      "id": "pergolas",
+      "name": "Pérgolas",
+      "short": "Pérgolas",
+      "description": "Transforma tu espacio al aire libre con nuestras pérgolas elegantes y funcionales, diseñadas para crear un ambiente acogedor y protegido.",
+      "icon": "pergola",
+      "pricing": [
+        { "label": "1 Pérgola", "price": 1199, "currency": "USD", "prefix": "Desde" }
+      ],
+      "features": [
+        "Diseños modernos y personalizados",
+        "Cerradura italiana de alta seguridad",
+        "Disponible en múltiples colores",
+        "Instalación incluida",
+        "Pintura anticorrosiva incluida",
+        "Entrega en menos de 7 días"
+      ]
+    },
+    {
+      "id": "portones",
+      "name": "Portones",
+      "short": "Portones",
+      "description": "Mejora la entrada de tu casa con nuestros portones de estacionamiento, una combinación perfecta de seguridad y diseño que eleva la estética de tu propiedad.",
+      "icon": "gate",
+      "pricing": [
+        { "label": "1 Portón", "price": 1350, "currency": "USD", "prefix": "Desde" }
+      ],
+      "features": [
+        "Diseños modernos y personalizados",
+        "Cerradura italiana de alta seguridad",
+        "Disponible en múltiples colores",
+        "Instalación incluida",
+        "Pintura anticorrosiva incluida",
+        "Entrega en menos de 7 días"
+      ]
+    },
+    {
+      "id": "puertas",
+      "name": "Puertas de Seguridad",
+      "short": "Puertas",
+      "description": "Asegura tu hogar con nuestras puertas de seguridad, diseñadas para resistir condiciones adversas con el mejor acabado del mercado.",
+      "icon": "door",
+      "pricing": [
+        { "label": "1 Puerta", "price": 699, "currency": "USD", "prefix": "Desde" }
+      ],
+      "features": [
+        "Diseños modernos y personalizados",
+        "Cerradura italiana de alta seguridad",
+        "Disponible en múltiples colores",
+        "Instalación incluida",
+        "Pintura anticorrosiva incluida",
+        "Entrega en menos de 7 días"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "step": 1,
+      "title": "Solicita tu presupuesto",
+      "description": "Escríbenos por WhatsApp o llámanos. Rápido, sin compromiso. Para cualquier techo, portón o puerta de seguridad."
+    },
+    {
+      "step": 2,
+      "title": "Coordinamos la instalación",
+      "description": "Acordamos el día de instalación que mejor te convenga. Nuestro equipo llega puntual con todos los materiales."
+    },
+    {
+      "step": 3,
+      "title": "Disfruta tu espacio",
+      "description": "Protege tu carro del sol, recibe visitas bajo tu nueva pérgola, o duerme tranquilo con tu puerta de seguridad instalada."
+    }
+  ],
+  "reasons": [
+    {
+      "title": "30 Años de Experiencia",
+      "description": "Tres décadas forjando estructuras metálicas de calidad en Venezuela. Tu proyecto está en manos expertas."
+    },
+    {
+      "title": "Instalación Incluida",
+      "description": "No hay sorpresas. El precio que cotizamos incluye materiales, mano de obra e instalación completa."
+    },
+    {
+      "title": "Entrega en 7 Días",
+      "description": "Fabricación y entrega en menos de una semana. Porque tu tiempo es tan valioso como tu inversión."
+    },
+    {
+      "title": "Cerradura Italiana",
+      "description": "Todos nuestros portones y puertas incluyen cerraduras italianas de alta seguridad, sin costo adicional."
+    }
+  ],
+  "testimonials": [
+    {
+      "text": "Perfecto para cuidar mi carro. La calidad del techo superó mis expectativas y lo instalaron rapidísimo.",
+      "author": "Cliente Valencia",
+      "rating": 5
+    },
+    {
+      "text": "Responsable, eficiente y amable. El portón quedó mejor de lo que esperaba. 100% recomendado.",
+      "author": "Cliente Carabobo",
+      "rating": 5
+    },
+    {
+      "text": "Excelente acabado. La puerta de seguridad le dio otro aspecto a toda la entrada de la casa.",
+      "author": "Cliente Valencia",
+      "rating": 5
+    }
+  ],
+  "stats": [
+    { "value": 30, "suffix": "+", "label": "Años de experiencia" },
+    { "value": 500, "suffix": "+", "label": "Proyectos completados" },
+    { "value": 7, "suffix": "", "label": "Días de entrega" },
+    { "value": 6, "suffix": "", "label": "Ciudades atendidas" }
+  ],
+  "seo": {
+    "title": "Flamingo Services — Taller de Herrería Valencia Venezuela",
+    "description": "Taller de herrería en Valencia, Venezuela con 30+ años de experiencia. Techos para estacionamiento, pérgolas, portones y puertas de seguridad. Instalación incluida. Atendemos Valencia, Maracay, Caracas y Barquisimeto.",
+    "keywords": [
+      "taller herrería Valencia Venezuela",
+      "herrería Valencia Carabobo",
+      "techos estacionamiento Valencia",
+      "portones herrería Venezuela",
+      "puertas seguridad Valencia Venezuela",
+      "pérgolas metálicas Venezuela",
+      "herrería Maracay",
+      "herrería Caracas",
+      "herrería Barquisimeto",
+      "taller herrería Carabobo",
+      "portones automáticos Valencia",
+      "techos aluminio Venezuela",
+      "flamingo services herrería"
+    ],
+    "og_image": "/og-image.jpg",
+    "canonical": "https://tallerherreriavalencia.com"
+  }
+}
