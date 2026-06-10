@@ -1,0 +1,39 @@
+<div class="cot-step" data-step="2">
+  <div class="cot-step-header">
+    <span class="step-num">02</span>
+    <h3>Dimensiones</h3>
+  </div>
+  <div class="cot-dimensions">
+    <div class="dim-field">
+      <label for="cotAncho">Ancho</label>
+      <div class="dim-slider-wrap">
+        <input type="range" id="cotAncho" min="1" max="10" step="0.5" value="3" class="dim-range" />
+        <div class="dim-value-pill">
+          <span id="cotAnchoVal">3.0</span><span class="dim-unit">m</span>
+        </div>
+      </div>
+    </div>
+    <div class="dim-field">
+      <label for="cotAlto">Alto</label>
+      <div class="dim-slider-wrap">
+        <input type="range" id="cotAlto" min="1" max="6" step="0.5" value="2.5" class="dim-range" />
+        <div class="dim-value-pill">
+          <span id="cotAltoVal">2.5</span><span class="dim-unit">m</span>
+        </div>
+      </div>
+    </div>
+    <div class="dim-field">
+      <label for="cotCant">Cantidad</label>
+      <div class="dim-counter">
+        <button class="counter-btn" data-action="dec" aria-label="Reducir">−</button>
+        <span id="cotCantVal" class="counter-value">1</span>
+        <button class="counter-btn" data-action="inc" aria-label="Aumentar">+</button>
+      </div>
+    </div>
+    <div class="dim-area" aria-live="polite">
+      <span class="area-label">Área total</span>
+      <span class="area-value" id="cotArea">7.5 m²</span>
+    </div>
+  </div>
+  <button class="cot-back" data-goto="1">← Cambiar producto</button>
+</div>

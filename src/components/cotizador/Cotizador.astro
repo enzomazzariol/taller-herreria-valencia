@@ -1,0 +1,53 @@
+---
+import content from '../../data/content.json';
+import StepProducto from './StepProducto.astro';
+import StepDimensiones from './StepDimensiones.astro';
+import StepExtras from './StepExtras.astro';
+import StepResumen from './StepResumen.astro';
+import './cotizador.css';
+
+const wa = content.contact.whatsapp;
+---
+
+<section id="cotizador" class="cotizador-section" data-wa={wa}>
+  <div class="cot-container">
+    <div class="cot-header" data-reveal>
+      <span class="cot-tag">Cotizador</span>
+      <h2 class="cot-title">
+        Tu presupuesto<br/>
+        <em>en 30 segundos</em>
+      </h2>
+      <p class="cot-sub">
+        Selecciona, personaliza y recibe tu precio estimado al instante.
+      </p>
+    </div>
+
+    <div class="cot-app" data-reveal data-reveal-delay="200">
+      <div class="cot-progress">
+        <div class="cot-progress-bar" id="cotProgress"></div>
+      </div>
+
+      <div class="cot-steps-wrap" id="cotStepsWrap">
+        <StepProducto />
+        <StepDimensiones />
+        <StepExtras />
+        <StepResumen />
+      </div>
+
+      <div class="cot-nav" id="cotNav">
+        <button class="cot-next" id="cotNext" disabled>
+          <span>Siguiente</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initCotizador } from './controller';
+  const wa = document.querySelector<HTMLElement>('#cotizador')!.dataset.wa!;
+  initCotizador(wa);
+</script>

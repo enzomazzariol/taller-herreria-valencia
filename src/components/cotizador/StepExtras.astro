@@ -1,0 +1,61 @@
+---
+const extras = [
+  {
+    value: 'pintura', cost: 80, checked: true,
+    name: 'Pintura anticorrosiva',
+    desc: 'Protección extra contra el clima',
+    badge: 'Incluido',
+  },
+  {
+    value: 'cerradura', cost: 0, checked: true,
+    name: 'Cerradura italiana',
+    desc: 'Alta seguridad, sin costo adicional',
+    badge: 'Incluido',
+    id: 'extraCerradura',
+  },
+  {
+    value: 'color', cost: 120, checked: false,
+    name: 'Color personalizado',
+    desc: 'Elige el color que combine con tu hogar',
+    price: '+$120',
+  },
+  {
+    value: 'automatizacion', cost: 350, checked: false,
+    name: 'Automatización',
+    desc: 'Motor eléctrico con control remoto',
+    price: '+$350',
+    id: 'extraAutomatizacion',
+  },
+];
+---
+
+<div class="cot-step" data-step="3">
+  <div class="cot-step-header">
+    <span class="step-num">03</span>
+    <h3>Personaliza</h3>
+  </div>
+  <div class="cot-extras">
+    {extras.map(e => (
+      <label class="extra-option" id={e.id}>
+        <input
+          type="checkbox"
+          name="extra"
+          value={e.value}
+          data-cost={e.cost}
+          checked={e.checked}
+        />
+        <div class="extra-card">
+          <div class="extra-info">
+            <span class="extra-name">{e.name}</span>
+            <span class="extra-desc">{e.desc}</span>
+          </div>
+          {e.badge
+            ? <span class="extra-badge">{e.badge}</span>
+            : <span class="extra-price">{e.price}</span>
+          }
+        </div>
+      </label>
+    ))}
+  </div>
+  <button class="cot-back" data-goto="2">← Cambiar dimensiones</button>
+</div>

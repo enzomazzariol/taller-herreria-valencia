@@ -109,22 +109,17 @@ const stepIcons = [
         </h2>
       </div>
 
-      <div class="reasons-grid">
+      <div class="reasons-list">
         {reasons.map((r, i) => {
-          const fig = [
-            { label: '30+', size: 'fig-xl' },
-            { label: '✓', size: 'fig-lg' },
-            { label: '7', size: 'fig-xl' },
-            { label: '⬟', size: 'fig-lg' },
-          ][i];
+          const figures = ['30+', '✓', '7d', '🔒'][i];
           return (
-          <article class="reason-card" data-reveal data-reveal-delay={100 + i * 100}>
-            <div class="reason-bar-top" aria-hidden="true"></div>
-            <div class="reason-glyph {fig.size}" aria-hidden="true">{fig.label}</div>
-            <h3 class="reason-title">{r.title}</h3>
-            <p class="reason-desc">{r.description}</p>
-            <div class="reason-glow" aria-hidden="true"></div>
-          </article>
+          <div class="reason-row" data-reveal data-reveal-delay={100 + i * 100}>
+            <span class="reason-figure" aria-hidden="true">{figures}</span>
+            <div class="reason-text">
+              <h3 class="reason-heading">{r.title}</h3>
+              <p class="reason-body">{r.description}</p>
+            </div>
+          </div>
           );
         })}
       </div>
@@ -483,103 +478,69 @@ const stepIcons = [
     color: var(--color-forge-muted);
   }
 
-  .reasons-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+  .reasons-list {
+    display: flex;
+    flex-direction: column;
   }
 
-  .reason-card {
-    position: relative;
-    padding: 2.5rem 2rem;
-    background: var(--color-forge-iron);
-    border-radius: 1.25rem;
-    overflow: hidden;
-    isolation: isolate;
-    transition: transform 0.6s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), box-shadow 0.6s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+  .reason-row {
+    display: flex;
+    align-items: baseline;
+    gap: 2.5rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
   }
 
-  .reason-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+  .reason-row:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .reason-bar-top {
-    width: 2.25rem;
-    height: 2px;
-    background: var(--color-copper);
-    margin-bottom: 1.5rem;
-    transition: width 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+  .reason-row:hover {
+    border-color: rgba(232, 80, 26, 0.2);
   }
 
-  .reason-card:hover .reason-bar-top {
-    width: 4rem;
+  .reason-row:hover + .reason-row {
+    border-top-color: rgba(232, 80, 26, 0.2);
   }
 
-  .reason-glyph {
-    position: relative;
-    z-index: 1;
+  .reason-figure {
     font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-style: italic;
-    color: var(--color-bronze);
-    line-height: 0.9;
-    margin-bottom: 0.75rem;
-    opacity: 0.7;
-    transition: opacity 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), transform 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .reason-card:hover .reason-glyph {
-    opacity: 1;
-    transform: scale(1.02);
-  }
-
-  .reason-glyph.fig-xl {
-    font-size: clamp(3rem, 5vw, 3.75rem);
+    color: var(--color-copper);
+    line-height: 1;
     letter-spacing: -0.04em;
+    flex-shrink: 0;
+    min-width: 5rem;
+    transition: transform 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
   }
 
-  .reason-glyph.fig-lg {
-    font-size: clamp(2.25rem, 4vw, 3rem);
+  .reason-row:hover .reason-figure {
+    transform: translateX(4px);
   }
 
-  .reason-title {
-    position: relative;
-    z-index: 1;
+  .reason-text {
+    flex: 1;
+  }
+
+  .reason-heading {
     font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
     font-weight: 400;
     color: var(--color-forge-smoke);
     letter-spacing: -0.02em;
     line-height: 1.2;
-    margin-bottom: 0.65rem;
+    margin-bottom: 0.5rem;
   }
 
-  .reason-desc {
-    position: relative;
-    z-index: 1;
+  .reason-body {
     font-family: var(--font-body);
     font-size: 0.9rem;
     color: var(--color-forge-muted);
     line-height: 1.7;
     margin: 0;
-    max-width: 40ch;
-  }
-
-  .reason-glow {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, var(--color-copper), var(--color-copper-light), transparent);
-    transform: scaleX(0.25);
-    transform-origin: left;
-    transition: transform 0.6s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-    opacity: 0.6;
-  }
-
-  .reason-card:hover .reason-glow {
-    transform: scaleX(1);
+    max-width: 50ch;
   }
 
   @media (max-width: 768px) {
@@ -595,12 +556,14 @@ const stepIcons = [
 
     .cascade-deco { display: none; }
 
-    .reasons-grid {
-      grid-template-columns: 1fr;
+    .reason-row {
+      flex-direction: column;
+      gap: 0.75rem;
+      padding: 1.75rem 0;
     }
 
-    .reason-card {
-      padding: 1.75rem 1.5rem;
+    .reason-figure {
+      min-width: auto;
     }
   }
 </style>
