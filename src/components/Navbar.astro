@@ -18,25 +18,29 @@ const links = [
     <img src="/taller-herreria-logo.png" alt="Flamingo Services" class="logo-img" />
   </a>
 
-  <nav class="nav-links" aria-label="Navegación principal">
-    {links.map((link) => (
-      <a href={link.href} class="nav-link">{link.label}</a>
-    ))}
-  </nav>
+  <div class="nav-cluster">
+    <nav class="nav-links" aria-label="Navegación principal">
+      {links.map((link) => (
+        <a href={link.href} class="nav-link">{link.label}</a>
+      ))}
+    </nav>
 
-  <div class="nav-actions">
-    <a
-      href={`https://wa.me/${wa}?text=${waMsg}`}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="nav-cta"
-    >
-      Solicitar presupuesto
-    </a>
-    <button id="menu-toggle" class="hamburger" aria-label="Abrir menú" aria-expanded="false">
-      <span></span>
-      <span></span>
-    </button>
+    <span class="nav-divider" aria-hidden="true"></span>
+
+    <div class="nav-actions">
+      <a
+        href={`https://wa.me/${wa}?text=${waMsg}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-cta"
+      >
+        Solicitar presupuesto
+      </a>
+      <button id="menu-toggle" class="hamburger" aria-label="Abrir menú" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </div>
 
   <div id="menu-overlay" class="menu-overlay" aria-hidden="true">
@@ -130,6 +134,19 @@ const links = [
     height: 34px;
     width: auto;
     display: block;
+  }
+
+  .nav-cluster {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    margin-left: auto;
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--color-forge-border);
   }
 
   .nav-links {
@@ -291,6 +308,7 @@ const links = [
 
   @media (max-width: 900px) {
     .nav-links { display: none; }
+    .nav-divider { display: none; }
     .nav-cta { display: none; }
     .hamburger { display: flex; }
     .navbar { padding: 1.25rem 1.5rem; }

@@ -10,11 +10,6 @@ const mapLinkUrl = `https://www.openstreetmap.org/?mlat=${c.lat}&mlon=${c.lon}#m
 
 <section id="contacto" class="contact-section">
   <div class="container">
-    <div class="section-eyebrow" data-reveal>
-      <span class="eyebrow-tag">07 — Contacto</span>
-      <div class="eyebrow-rule"></div>
-    </div>
-
     <div class="grid" data-reveal>
       <div class="form-col">
         <h2>Cuéntanos qué necesitas forjar</h2>
@@ -74,29 +69,6 @@ const mapLinkUrl = `https://www.openstreetmap.org/?mlat=${c.lat}&mlon=${c.lon}#m
   .container {
     max-width: 1600px;
     margin: 0 auto;
-  }
-
-  .section-eyebrow {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 3.5rem;
-  }
-
-  .eyebrow-tag {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-copper);
-    white-space: nowrap;
-  }
-
-  .eyebrow-rule {
-    flex: 1;
-    height: 1px;
-    background: var(--color-forge-border);
   }
 
   .grid {
@@ -181,7 +153,7 @@ const mapLinkUrl = `https://www.openstreetmap.org/?mlat=${c.lat}&mlon=${c.lon}#m
   }
 
   .map-card:hover {
-    border-color: rgba(217, 123, 63, 0.4);
+    border-color: var(--color-copper-border-hover);
   }
 
   .map-iframe {

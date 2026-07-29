@@ -19,12 +19,25 @@
   --color-bronze:        #8A8F87;
   --color-bronze-light:  #A5AA9F;
 
+  --color-copper-border-hover: rgba(217, 123, 63, 0.4);
+  --color-copper-wash:         rgba(217, 123, 63, 0.1);
+
   --font-display: "Righteous", cursive;
   --font-body:    "Geomini", system-ui, sans-serif;
   --font-mono:    "Space Mono", ui-monospace, monospace;
 
   --section-py: clamp(6rem, 12vw, 10rem);
   --radius: 0;
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2rem;
+  --space-xl:  3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
 
   --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -66,6 +79,16 @@ h1, h2, h3, h4 {
   color: var(--color-forge-smoke);
 }
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-copper);
+  outline-offset: 2px;
+}
+
 @keyframes pulse-ring {
   0%   { transform: scale(1);    opacity: 0.8; }
   70%  { transform: scale(1.4);  opacity: 0; }
@@ -100,6 +123,15 @@ h1, h2, h3, h4 {
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
 }
 
 [data-reveal-delay="100"] { transition-delay: 0.1s; }

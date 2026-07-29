@@ -24,36 +24,27 @@ const waMsg = encodeURIComponent(c.whatsapp_message);
 
 <footer class="footer">
   <div class="container">
-    <div class="footer-grid">
+    <div class="footer-top">
       <div class="footer-brand" data-reveal>
         <img src="/taller-herreria-logo.png" alt="Flamingo Services" class="footer-logo" />
         <p class="footer-desc">{b.description}</p>
       </div>
 
-      <div class="footer-col" data-reveal>
-        <span class="col-title">Servicios</span>
-        <a href="#servicios">Techos para Estacionamiento</a>
-        <a href="#servicios">Pérgolas</a>
-        <a href="#servicios">Portones</a>
-        <a href="#servicios">Puertas de Seguridad</a>
-      </div>
-
-      <div class="footer-col" data-reveal>
-        <span class="col-title">Empresa</span>
-        <a href="#proceso">Proceso</a>
-        <a href="#precios">Precios</a>
-        <a href="#galeria">Galería</a>
-        <a href="#quienes-somos">Por qué Flamingo</a>
-        <a href="#contacto">Contacto</a>
-      </div>
-
-      <div class="footer-col" data-reveal>
-        <span class="col-title">Contacto</span>
+      <div class="footer-contact" data-reveal>
         <span class="contact-line">Valencia, Carabobo</span>
         <span class="contact-line">Tel. {c.phone}</span>
         <span class="contact-line">{c.hours}</span>
       </div>
     </div>
+
+    <nav class="footer-nav" aria-label="Enlaces del footer" data-reveal>
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#precios">Precios</a>
+      <a href="#galeria">Galería</a>
+      <a href="#quienes-somos">Por qué Flamingo</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
 
     <div class="footer-bottom">
       <span>© {new Date().getFullYear()} {b.name}. Todos los derechos reservados.</span>
@@ -178,11 +169,13 @@ const waMsg = encodeURIComponent(c.whatsapp_message);
     margin: 0 auto;
   }
 
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     gap: 2.5rem;
-    padding-bottom: 3.5rem;
+    flex-wrap: wrap;
+    padding-bottom: 2.5rem;
   }
 
   .footer-logo {
@@ -197,36 +190,40 @@ const waMsg = encodeURIComponent(c.whatsapp_message);
     font-size: 0.84rem;
     line-height: 1.6;
     color: var(--color-forge-muted);
-    max-width: 280px;
+    max-width: 340px;
   }
 
-  .footer-col {
+  .footer-contact {
     display: flex;
     flex-direction: column;
-    gap: 0.625rem;
+    align-items: flex-end;
+    gap: 0.375rem;
+    text-align: right;
   }
 
-  .col-title {
-    font-family: var(--font-body);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-forge-muted);
-    margin-bottom: 0.5rem;
-  }
-
-  .footer-col a,
   .contact-line {
     font-family: var(--font-body);
     font-size: 0.84rem;
     color: var(--color-forge-muted);
-    text-decoration: none;
-    width: fit-content;
-    transition: color 0.3s var(--ease-spring), transform 0.3s var(--ease-spring);
   }
 
-  .footer-col a:hover { color: var(--color-copper); transform: translateX(3px); }
+  .footer-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 2rem;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--color-forge-border);
+  }
+
+  .footer-nav a {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-forge-muted);
+    text-decoration: none;
+    transition: color 0.3s var(--ease-spring);
+  }
+
+  .footer-nav a:hover { color: var(--color-copper); }
 
   .footer-bottom {
     display: grid;
@@ -267,12 +264,12 @@ const waMsg = encodeURIComponent(c.whatsapp_message);
   }
 
   @media (max-width: 900px) {
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .footer-brand { grid-column: 1 / -1; }
+    .footer-top { flex-direction: column; align-items: flex-start; }
+    .footer-contact { align-items: flex-start; text-align: left; }
   }
 
   @media (max-width: 560px) {
-    .footer-grid { grid-template-columns: 1fr; }
     .br-desktop { display: none; }
+    .footer-nav { gap: 0.75rem 1.25rem; }
   }
 </style>

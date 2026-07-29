@@ -7,11 +7,7 @@ const featuredId = 'portones';
 
 <section id="precios" class="pricing-section">
   <div class="container">
-    <div class="section-eyebrow" data-reveal>
-      <span class="eyebrow-tag">03 — Precios</span>
-      <div class="eyebrow-rule"></div>
-    </div>
-
+    <h2 class="section-title" data-reveal>Precios</h2>
     <p class="section-note" data-reveal>
       Todos los precios incluyen materiales, pintura anticorrosiva e instalación. Lo que ves es lo que pagas.
     </p>
@@ -62,27 +58,12 @@ const featuredId = 'portones';
     margin: 0 auto;
   }
 
-  .section-eyebrow {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .eyebrow-tag {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-copper);
-    white-space: nowrap;
-  }
-
-  .eyebrow-rule {
-    flex: 1;
-    height: 1px;
-    background: var(--color-forge-border);
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    color: var(--color-forge-smoke);
+    margin-bottom: 0.875rem;
   }
 
   .section-note {
@@ -111,9 +92,7 @@ const featuredId = 'portones';
   }
 
   .card:hover {
-    border-color: rgba(217, 123, 63, 0.5);
     transform: translateY(-6px);
-    background: color-mix(in srgb, var(--color-forge-iron) 90%, var(--color-copper));
   }
 
   .card--featured {
@@ -122,14 +101,6 @@ const featuredId = 'portones';
 
   .card--featured:hover {
     transform: translateY(-8px);
-  }
-
-  .card-price {
-    transition: transform 0.4s var(--ease-spring);
-  }
-
-  .card:hover .card-price {
-    transform: translateX(3px);
   }
 
   .badge {
@@ -188,6 +159,7 @@ const featuredId = 'portones';
     margin-top: auto;
     display: block;
     text-align: center;
+    white-space: nowrap;
     border: 1px solid var(--color-forge-smoke);
     color: var(--color-forge-smoke);
     font-family: var(--font-body);

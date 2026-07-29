@@ -1,23 +1,17 @@
 ---
 import content from '../data/content.json';
-const b = content.business;
 const wa = content.contact.whatsapp;
 const waMsg = encodeURIComponent(content.contact.whatsapp_message);
+const reasons = content.reasons;
 
-const stats = [
-  { value: `${b.experience_years}+`, label: 'Años forjando estructuras en Valencia, Carabobo' },
-  { value: '500+', label: 'Portones, barandillas y estructuras instaladas' },
-  { value: '1', label: 'Año de garantía escrita en toda instalación' },
-];
+const stats = [content.stats[0], content.stats[1], content.stats[3]].map((s) => ({
+  value: `${s.value}${s.suffix}`,
+  label: s.label,
+}));
 ---
 
 <section id="quienes-somos" class="whyus-section">
   <div class="container">
-    <div class="section-eyebrow" data-reveal>
-      <span class="eyebrow-tag">06 — Por qué Flamingo</span>
-      <div class="eyebrow-rule"></div>
-    </div>
-
     <div class="grid" data-reveal>
       <div class="statement">
         <h2>Cada pieza lleva el mismo compromiso: instalarse una vez y no volver al taller.</h2>
@@ -34,6 +28,15 @@ const stats = [
       </div>
     </div>
 
+    <div class="reasons" data-reveal>
+      {reasons.map((r) => (
+        <div class="reason">
+          <h3>{r.title}</h3>
+          <p>{r.description}</p>
+        </div>
+      ))}
+    </div>
+
     <a
       href={`https://wa.me/${wa}?text=${waMsg}`}
       target="_blank"
@@ -41,7 +44,7 @@ const stats = [
       class="cta-btn"
       data-reveal
     >
-      Empezar ahora — es gratis
+      Empezar ahora — gratis
     </a>
   </div>
 </section>
@@ -54,29 +57,6 @@ const stats = [
   .container {
     max-width: 1600px;
     margin: 0 auto;
-  }
-
-  .section-eyebrow {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 3.5rem;
-  }
-
-  .eyebrow-tag {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-copper);
-    white-space: nowrap;
-  }
-
-  .eyebrow-rule {
-    flex: 1;
-    height: 1px;
-    background: var(--color-forge-border);
   }
 
   .grid {
@@ -141,8 +121,33 @@ const stats = [
     color: var(--color-forge-muted);
   }
 
+  .reasons {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--color-forge-border);
+  }
+
+  .reason h3 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-forge-smoke);
+    margin-bottom: 0.5rem;
+  }
+
+  .reason p {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--color-forge-muted);
+  }
+
   .cta-btn {
     display: inline-block;
+    white-space: nowrap;
     margin-top: 3rem;
     background: var(--color-copper);
     color: var(--color-forge-black);
@@ -161,5 +166,10 @@ const stats = [
     .grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .stats { grid-template-columns: 1fr; gap: 1.5rem; }
     .stat { border-left: none; border-top: 1px solid var(--color-forge-border); padding: 1.5rem 0 0; }
+    .reasons { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  }
+
+  @media (max-width: 560px) {
+    .reasons { grid-template-columns: 1fr; }
   }
 </style>

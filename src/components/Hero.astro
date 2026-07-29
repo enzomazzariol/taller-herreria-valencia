@@ -52,7 +52,7 @@ const b = content.business;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    padding: clamp(6.5rem, 12vw, 8rem) clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding: clamp(6.5rem, 12vw, 8rem) clamp(1.5rem, 4vw, 3rem) clamp(3.5rem, 8vw, 5rem);
     overflow: hidden;
   }
 
@@ -83,7 +83,7 @@ const b = content.business;
 
   .hero-bg.no-photo {
     background:
-      radial-gradient(ellipse 70% 50% at 30% 20%, rgba(217, 123, 63, 0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 50% at 30% 20%, var(--color-copper-wash) 0%, transparent 60%),
       repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 14px),
       var(--color-forge-black);
   }
@@ -101,7 +101,7 @@ const b = content.business;
   .bg-wash {
     position: absolute;
     inset: 0;
-    background: rgba(217, 123, 63, 0.1);
+    background: var(--color-copper-wash);
     mix-blend-mode: multiply;
   }
 
@@ -139,20 +139,20 @@ const b = content.business;
   .kicker {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.875rem;
     font-family: var(--font-body);
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-bronze);
-    margin-bottom: 0.875rem;
+    color: var(--color-forge-smoke);
+    margin-bottom: 1.25rem;
   }
 
   .kicker-line {
-    width: 34px;
-    height: 1px;
-    background: var(--color-bronze);
+    width: 44px;
+    height: 2px;
+    background: var(--color-copper);
   }
 
   .hero-title {
@@ -162,6 +162,8 @@ const b = content.business;
     line-height: 1.06;
     letter-spacing: -0.01em;
     color: var(--color-forge-smoke);
+    overflow-wrap: anywhere;
+    min-width: 0;
   }
 
   .hero-title .accent { color: var(--color-copper); }

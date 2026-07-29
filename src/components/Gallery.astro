@@ -41,11 +41,6 @@ const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
 
 <section id="galeria" class="gallery-section">
   <div class="container">
-    <div class="section-eyebrow" data-reveal>
-      <span class="eyebrow-tag">05 — Galería</span>
-      <div class="eyebrow-rule"></div>
-    </div>
-
     <div class="gallery-filters" role="tablist" data-reveal>
       {[
         { label: 'Todos', value: 'all' },
@@ -303,29 +298,6 @@ const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
   .container {
     max-width: 1600px;
     margin: 0 auto;
-  }
-
-  .section-eyebrow {
-    display: flex;
-    align-items: baseline;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-  }
-
-  .eyebrow-tag {
-    font-family: var(--font-body);
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-copper);
-    white-space: nowrap;
-  }
-
-  .eyebrow-rule {
-    flex: 1;
-    height: 1px;
-    background: var(--color-forge-border);
   }
 
   .gallery-filters {
