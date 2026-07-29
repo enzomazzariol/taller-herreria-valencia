@@ -1,569 +1,190 @@
 ---
 import content from '../data/content.json';
 const steps = content.process;
-const reasons = content.reasons;
 const wa = content.contact.whatsapp;
 const waMsg = encodeURIComponent(content.contact.whatsapp_message);
 
-const stepIcons = [
-  {
-    label: 'Chat',
-    d: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
-  },
-  {
-    label: 'Calendar',
-    d: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z',
-  },
-  {
-    label: 'House',
-    d: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 0 0 1 1h3m10-11l2 2m-2-2v10a1 1 0 0 1-1 1h-3m-6 0a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1m-6 0h6',
-  },
-];
+const seeds = ['yunque-consulta', 'yunque-diseno', 'yunque-forja-proceso', 'yunque-instalacion'];
 ---
 
 <section id="proceso" class="process-section">
   <div class="container">
-    <div class="process-block">
-      <div class="block-header" data-reveal>
-        <span class="section-tag">Cómo funciona</span>
-        <h2 class="section-title">
-          De cero a instalado<br />
-          <em>en 3 pasos</em>
-        </h2>
-      </div>
-
-      <div class="steps-cascade" data-reveal>
-        <div class="cascade-deco cascade-deco--left" aria-hidden="true">
-          <span class="deco-ring"></span>
-          <span class="deco-diamond"></span>
-          <div class="cascade-sparks">
-            {Array.from({ length: 18 }).map((_, i) => (
-              <span class="cspark" style={`--j:${i}; --cx:${3 + i * 5.5}%; --cd:${(i * 0.25 + 0.2) % 3}s; --cs:${3 + (i * 1.1) % 5}px`}></span>
-            ))}
-          </div>
-        </div>
-
-        <div class="cascade-deco cascade-deco--right" aria-hidden="true">
-          <div class="cascade-sparks">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <span class="cspark cspark--r" style={`--j:${i}; --cx:${2 + i * 5}%; --cd:${(i * 0.2 + 0.3) % 3.5}s; --cs:${2 + (i * 1.2) % 5}px`}></span>
-            ))}
-          </div>
-          <span class="deco-line-v"></span>
-        </div>
-
-        {steps.map((step, i) => (
-          <article
-            class="step-card"
-            style={`
-              --cascade-index: ${i};
-              --cascade-rotate: ${[-2.5, 2, -1.5][i]}deg;
-              --cascade-stack: ${[-10, -25][i - 1] || 0}px;
-              z-index: ${10 - i};
-            `}
-          >
-            <div class="step-db-outer">
-              <div class="step-db-inner">
-                <div class="step-topline" aria-hidden="true"></div>
-                <div class="step-meta">
-                  <span class="step-badge">{step.step}</span>
-                  <svg class="step-icon" width="18" height="18" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="1.5"
-                    stroke-linecap="round" stroke-linejoin="round"
-                    aria-hidden="true">
-                    <path d={stepIcons[i].d} />
-                  </svg>
-                </div>
-                <h3 class="step-title">{step.title}</h3>
-                <p class="step-desc">{step.description}</p>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      <div class="process-cta" data-reveal>
-        <a
-          href={`https://wa.me/${wa}?text=${waMsg}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="btn-primary"
-        >
-          <span>Empezar ahora — es gratis</span>
-          <span class="cta-icon-wrap">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </span>
-        </a>
-        <span class="cta-note">Respuesta en menos de 1 hora</span>
-      </div>
+    <div class="section-eyebrow" data-reveal>
+      <span class="eyebrow-tag">02 — Proceso</span>
+      <div class="eyebrow-rule"></div>
     </div>
 
-    <div class="reasons-block">
-      <div class="block-header" data-reveal>
-        <span class="section-tag">Por qué Flamingo</span>
-        <h2 class="section-title">
-          30 años no mienten.<br />
-          <em>La calidad tampoco.</em>
-        </h2>
-      </div>
-
-      <div class="reasons-list">
-        {reasons.map((r, i) => {
-          const figures = ['30+', '✓', '7d', '🔒'][i];
-          return (
-          <div class="reason-row" data-reveal data-reveal-delay={100 + i * 100}>
-            <span class="reason-figure" aria-hidden="true">{figures}</span>
-            <div class="reason-text">
-              <h3 class="reason-heading">{r.title}</h3>
-              <p class="reason-body">{r.description}</p>
-            </div>
+    <div class="steps-row" data-reveal>
+      {steps.map((step, i) => (
+        <div class:list={['step', i === 2 && 'step--forge']} data-reveal data-reveal-delay={100 + i * 80}>
+          <div class="step-photo">
+            <img
+              src={`https://picsum.photos/seed/${seeds[i]}/500/500`}
+              alt=""
+              loading="lazy"
+              onerror="this.remove()"
+            />
           </div>
-          );
-        })}
-      </div>
+          <span class="step-num">{String(step.step).padStart(2, '0')}</span>
+          <h3 class="step-title">{step.title}</h3>
+          <p class="step-desc">{step.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="process-cta" data-reveal>
+      <a
+        href={`https://wa.me/${wa}?text=${waMsg}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cta-btn"
+      >
+        Solicitar presupuesto gratis
+      </a>
+      <span class="cta-note">Respuesta en menos de 24 horas</span>
     </div>
   </div>
 </section>
 
 <style>
   .process-section {
-    padding: var(--section-py) 2rem;
-    background: var(--color-forge-carbon);
-    position: relative;
-  }
-
-  .process-section::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+    padding: 0 clamp(1.5rem, 4vw, 3rem) var(--section-py);
   }
 
   .container {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 7rem;
   }
 
-  .block-header { margin-bottom: 3.5rem; max-width: 500px; }
+  .section-eyebrow {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+  }
 
-  .section-tag {
-    display: inline-block;
+  .eyebrow-tag {
     font-family: var(--font-body);
-    font-size: 0.7rem;
-    font-weight: 700;
+    font-size: 0.78rem;
+    font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-copper);
-    margin-bottom: 1rem;
+    white-space: nowrap;
   }
 
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4.5vw, 3.25rem);
-    color: var(--color-forge-smoke);
-    letter-spacing: -0.03em;
-    line-height: 1.08;
+  .eyebrow-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--color-forge-border);
   }
 
-  .section-title em { font-style: italic; color: var(--color-copper); }
-
-  .steps-cascade {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 3rem 0 4rem;
+  .steps-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    align-items: start;
   }
 
-  .step-card {
-    position: relative;
-    width: 100%;
-    max-width: min(740px, 90vw);
-    transform: rotate(var(--cascade-rotate));
-    margin-top: var(--cascade-stack, 0);
-    transition: transform 0.6s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), box-shadow 0.6s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+  .step {
+    padding: 1rem;
+    border: 1px solid transparent;
+    transition: transform 0.5s var(--ease-spring), border-color 0.5s var(--ease-spring), background 0.5s var(--ease-spring);
   }
 
-  .step-card:first-child {
-    margin-top: 0;
-  }
-
-  .step-card:hover {
-    transform: rotate(0deg) scale(1.02);
-    z-index: 20 !important;
-  }
-
-  .cascade-deco {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .cascade-deco--left {
-    left: 2%;
-    width: 120px;
-    width: clamp(80px, 12vw, 180px);
-  }
-
-  .cascade-deco--right {
-    right: 2%;
-    width: 120px;
-    width: clamp(80px, 12vw, 180px);
-  }
-
-  .deco-ring {
-    position: absolute;
-    top: 8%;
-    left: 0.5rem;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid rgba(232, 80, 26, 0.12);
-    animation: deco-float-ring 7s ease-in-out infinite;
-  }
-
-  @keyframes deco-float-ring {
-    0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
-    50% { transform: translateY(-24px) scale(1.08); opacity: 0.7; }
-  }
-
-  .deco-diamond {
-    position: absolute;
-    top: 40%;
-    left: 2rem;
-    width: 18px;
-    height: 18px;
-    border: 1px solid rgba(201, 162, 74, 0.15);
-    transform: rotate(45deg);
-    animation: deco-float-diamond 9s ease-in-out infinite;
-  }
-
-  @keyframes deco-float-diamond {
-    0%, 100% { transform: rotate(45deg) translateY(0) scale(1); opacity: 0.3; }
-    50% { transform: rotate(45deg) translateY(-18px) scale(1.1); opacity: 0.6; }
-  }
-
-  .deco-dot {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(232, 80, 26, 0.08);
-  }
-
-  .deco-dot.dot-1 {
-    top: 65%;
-    left: 0;
-    width: 8px;
-    height: 8px;
-    animation: deco-pulse-dot 5s ease-in-out infinite;
-  }
-
-  .deco-dot.dot-2 {
-    top: 20%;
-    left: 3rem;
-    width: 5px;
-    height: 5px;
-    background: rgba(201, 162, 74, 0.1);
-    animation: deco-pulse-dot 6s ease-in-out infinite 1s;
-  }
-
-  @keyframes deco-pulse-dot {
-    0%, 100% { transform: scale(1); opacity: 0.3; }
-    50% { transform: scale(1.8); opacity: 0.6; }
-  }
-
-  .cascade-sparks {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-
-  .cspark {
-    position: absolute;
-    bottom: 0;
-    left: var(--cx);
-    width: var(--cs);
-    height: var(--cs);
-    border-radius: 50%;
-    background: var(--color-copper);
-    box-shadow: 0 0 6px 1px rgba(232, 80, 26, 0.25);
-    animation: cspark-rise calc(4.5s + var(--cd)) ease-out infinite;
-    animation-delay: calc(var(--cd) + var(--j) * 0.25s);
-    opacity: 0;
-  }
-
-  .cspark:nth-child(even) {
-    background: var(--color-bronze);
-    box-shadow: 0 0 6px 1px rgba(201, 162, 74, 0.2);
-  }
-
-  .cspark:nth-child(3n) {
-    width: calc(var(--cs) * 0.5);
-    height: calc(var(--cs) * 0.5);
-    box-shadow: 0 0 8px 2px rgba(232, 80, 26, 0.3);
-  }
-
-  .cspark--r {
-    left: auto;
-    right: var(--cx);
-  }
-
-  @keyframes cspark-rise {
-    0%   { opacity: 0;    transform: translateY(0)       scale(0.6); }
-    8%   { opacity: 1;    transform: translateY(-8px)    scale(1.3); }
-    20%  { opacity: 0.7;  transform: translateY(-20%)    scale(1); }
-    60%  { opacity: 0.3;  transform: translateY(-65vh)   scale(0.5); }
-    100% { opacity: 0;    transform: translateY(-100vh)  scale(0); }
-  }
-
-  .deco-line-v {
-    position: absolute;
-    top: 10%;
-    bottom: 10%;
-    right: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.04), transparent);
-  }
-
-  .step-db-outer {
-    padding: 0.375rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: calc(1.25rem + 0.375rem);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: border-color 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), background 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .step-card:hover .step-db-outer {
-    border-color: rgba(232, 80, 26, 0.25);
-    background: rgba(232, 80, 26, 0.03);
-  }
-
-  .step-db-inner {
-    position: relative;
-    padding: 2.25rem;
+  .step:hover {
+    transform: scale(1.045);
+    border-color: var(--color-forge-border);
     background: var(--color-forge-iron);
-    border-radius: 1.25rem;
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    z-index: 2;
+    position: relative;
+  }
+
+  .step--forge:hover {
+    border-color: rgba(217, 123, 63, 0.4);
+  }
+
+  .step-photo {
+    height: 220px;
     overflow: hidden;
+    margin-bottom: 1.125rem;
+    position: relative;
   }
 
-  .step-topline {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--color-copper), var(--color-copper), transparent 85%);
-    opacity: 0.6;
-    transition: opacity 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+  .step-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.6);
+    transform: scale(1.08);
+    transition: transform 0.6s var(--ease-spring), filter 0.6s var(--ease-spring);
   }
 
-  .step-card:hover .step-topline {
-    opacity: 1;
+  .step:hover .step-photo img {
+    transform: scale(1);
+    filter: saturate(0.85);
   }
 
-  .step-meta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 0.25rem;
-  }
-
-  .step-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(232,80,26,0.12);
-    border: 1px solid rgba(232,80,26,0.3);
+  .step-num {
+    display: block;
     font-family: var(--font-display);
-    font-size: 0.9rem;
-    font-style: italic;
-    color: var(--color-copper);
+    font-weight: 400;
+    font-size: 2.5rem;
+    color: var(--color-forge-border);
     line-height: 1;
+    transition: color 0.4s var(--ease-spring);
   }
 
-  .step-icon {
-    color: var(--color-copper);
-    opacity: 0.6;
-    transition: opacity 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), transform 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .step-card:hover .step-icon {
-    opacity: 1;
-    transform: scale(1.15);
-  }
+  .step:hover .step-num { color: var(--color-copper); }
 
   .step-title {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 400;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
     color: var(--color-forge-smoke);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
+    margin: 0.5rem 0 0.375rem;
   }
 
   .step-desc {
     font-family: var(--font-body);
-    font-size: 0.925rem;
+    font-size: 0.8125rem;
+    line-height: 1.55;
     color: var(--color-forge-muted);
-    line-height: 1.7;
-    margin: 0;
   }
 
   .process-cta {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
+    text-align: center;
+    margin-top: 3.5rem;
   }
 
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: white;
+  .cta-btn {
+    display: inline-block;
     background: var(--color-copper);
+    color: var(--color-forge-black);
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
     text-decoration: none;
-    padding: 0.75rem 0.75rem 0.75rem 1.5rem;
-    border-radius: 9999px;
-    transition: background 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), transform 0.3s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), box-shadow 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-    box-shadow: 0 4px 20px rgba(232,80,26,0.25);
+    padding: 1rem 1.875rem;
+    transition: background 0.3s var(--ease-spring);
   }
 
-  .btn-primary:hover {
-    background: var(--color-copper-light);
-    box-shadow: 0 8px 32px rgba(232,80,26,0.4);
-  }
-
-  .btn-primary:active {
-    transform: scale(0.97);
-  }
-
-  .btn-primary .cta-icon-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 9999px;
-    background: rgba(0, 0, 0, 0.2);
-    transition: transform 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .btn-primary:hover .cta-icon-wrap {
-    transform: translateX(2px) scale(1.05);
-  }
+  .cta-btn:hover { background: var(--color-copper-light); }
 
   .cta-note {
+    display: block;
     font-family: var(--font-body);
-    font-size: 0.8rem;
+    font-size: 0.72rem;
     color: var(--color-forge-muted);
+    margin-top: 0.75rem;
   }
 
-  .reasons-list {
-    display: flex;
-    flex-direction: column;
+  @media (max-width: 900px) {
+    .steps-row { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .step:hover { transform: none; }
   }
 
-  .reason-row {
-    display: flex;
-    align-items: baseline;
-    gap: 2.5rem;
-    padding: 2.5rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    transition: border-color 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .reason-row:first-child {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .reason-row:hover {
-    border-color: rgba(232, 80, 26, 0.2);
-  }
-
-  .reason-row:hover + .reason-row {
-    border-top-color: rgba(232, 80, 26, 0.2);
-  }
-
-  .reason-figure {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-style: italic;
-    color: var(--color-copper);
-    line-height: 1;
-    letter-spacing: -0.04em;
-    flex-shrink: 0;
-    min-width: 5rem;
-    transition: transform 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .reason-row:hover .reason-figure {
-    transform: translateX(4px);
-  }
-
-  .reason-text {
-    flex: 1;
-  }
-
-  .reason-heading {
-    font-family: var(--font-display);
-    font-size: clamp(1.1rem, 2vw, 1.35rem);
-    font-weight: 400;
-    color: var(--color-forge-smoke);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-  }
-
-  .reason-body {
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    color: var(--color-forge-muted);
-    line-height: 1.7;
-    margin: 0;
-    max-width: 50ch;
-  }
-
-  @media (max-width: 768px) {
-    .step-card {
-      max-width: 100%;
-      transform: none !important;
-      margin-top: 0 !important;
-    }
-
-    .step-db-inner {
-      padding: 1.75rem 1.5rem;
-    }
-
-    .cascade-deco { display: none; }
-
-    .reason-row {
-      flex-direction: column;
-      gap: 0.75rem;
-      padding: 1.75rem 0;
-    }
-
-    .reason-figure {
-      min-width: auto;
-    }
+  @media (max-width: 480px) {
+    .steps-row { grid-template-columns: 1fr; }
   }
 </style>

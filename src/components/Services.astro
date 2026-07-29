@@ -1,467 +1,310 @@
 ---
 import content from '../data/content.json';
-const services = content.services;
+const [featured, ...rest] = content.services;
+const wa = content.contact.whatsapp;
 
-const icons: Record<string, string> = {
-  'car-garage': `<svg width="24" height="24" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M4 20V12l2-6h20l2 6v8"/>
-    <path d="M2 20h28"/>
-    <path d="M6 20v6h4v-6M22 20v6h4v-6"/>
-    <path d="M10 14h12M8 17h3M21 17h3"/>
-    <rect x="12" y="14" width="8" height="4" rx="1"/>
-  </svg>`,
-  'pergola': `<svg width="24" height="24" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M2 8h28"/>
-    <path d="M6 8v18M26 8v18"/>
-    <path d="M6 14h20M6 19h20"/>
-    <path d="M10 8v-4M16 8V2M22 8V4"/>
-    <path d="M4 26h24"/>
-  </svg>`,
-  'gate': `<svg width="24" height="24" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="2" y="6" width="12" height="20" rx="1"/>
-    <rect x="18" y="6" width="12" height="20" rx="1"/>
-    <path d="M2 12h12M18 12h12M2 18h12M18 18h12M2 24h12M18 24h12"/>
-    <circle cx="13" cy="16" r="1.5" fill="currentColor" stroke="none"/>
-    <circle cx="19" cy="16" r="1.5" fill="currentColor" stroke="none"/>
-  </svg>`,
-  'door': `<svg width="24" height="24" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="7" y="3" width="18" height="26" rx="1.5"/>
-    <path d="M7 3H5a1 1 0 00-1 1v24a1 1 0 001 1h2"/>
-    <path d="M25 3h2a1 1 0 011 1v24a1 1 0 01-1 1h-2"/>
-    <path d="M21 15.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" fill="currentColor" stroke="none"/>
-    <path d="M16 8v5M16 19v5"/>
-  </svg>`,
+const seeds: Record<string, string> = {
+  techos: 'flamingo-techo',
+  pergolas: 'svc-pergola',
+  portones: 'svc-porton',
+  puertas: 'svc-puerta',
 };
-
-const bentoLayout = [
-  'lg:col-span-7 lg:row-span-2',
-  'lg:col-span-5 lg:row-span-1',
-  'lg:col-span-5 lg:row-span-1',
-  'lg:col-span-7 lg:row-span-1',
-];
 ---
 
 <section id="servicios" class="services-section">
   <div class="container">
-    <div class="section-header" data-reveal>
-      <span class="section-tag">Servicios</span>
-      <h2 class="section-title">
-        Todo lo que tu hogar<br/>
-        <em>necesita en metal</em>
-      </h2>
-      <p class="section-sub">
-        Fabricamos e instalamos en menos de 7 días. Precio final, sin sorpresas.
-      </p>
+    <div class="section-eyebrow" data-reveal>
+      <span class="eyebrow-tag">01 — Servicios</span>
+      <div class="eyebrow-rule"></div>
     </div>
 
-    <div class="services-bento">
-      {services.map((s, i) => (
-        <article
-          class={`service-bento-card ${bentoLayout[i]}`}
-          data-reveal
-          data-reveal-delay={100 + i * 80}
-        >
-          <div class="sbc-outer">
-            <div class="sbc-inner">
-              <span class="card-index" aria-hidden="true">0{i + 1}</span>
+    <a
+      href={`https://wa.me/${wa}?text=${encodeURIComponent('Hola, me interesa un presupuesto para ' + featured.name)}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="featured-card"
+      data-reveal
+    >
+      <img
+        src={`https://picsum.photos/seed/${seeds[featured.id]}/1000/1200`}
+        alt=""
+        loading="lazy"
+        onerror="this.remove()"
+      />
+      <div class="featured-scrim"></div>
+      <div class="featured-body">
+        <span class="card-num">01</span>
+        <h3 class="featured-title">{featured.name}</h3>
+        <p class="featured-desc">{featured.description}</p>
+        <div class="featured-foot">
+          <span class="price">{featured.pricing[0].prefix} ${featured.pricing[0].price?.toLocaleString()}</span>
+          <span class="cta-btn">Pedir presupuesto</span>
+        </div>
+      </div>
+    </a>
 
-              <div class="sbc-top">
-                <div class="card-icon" set:html={icons[s.icon]} />
-                <div class="sbc-top-text">
-                  <h3 class="card-title">{s.name}</h3>
-                  <p class="card-desc">{s.description}</p>
-                </div>
-              </div>
-
-              <ul class="card-features">
-                {s.features.slice(0, 4).map(f => (
-                  <li>{f}</li>
-                ))}
-              </ul>
-
-              <div class="sbc-pricing">
-                {s.pricing[0].price ? (
-                  <div class="sbc-price-block">
-                    <span class="price-from">Desde</span>
-                    <div class="price-amount">
-                      <span class="price-currency">$</span>
-                      <span class="price-num">{s.pricing[0].price.toLocaleString()}</span>
-                    </div>
-                  </div>
-                ) : (
-                  <span class="price-consult">Consultar precio</span>
-                )}
-
-                <a
-                  href={`https://wa.me/${content.contact.whatsapp}?text=${encodeURIComponent('Hola, me interesa un presupuesto para ' + s.name)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="sbc-cta"
-                >
-                  <span>Pedir presupuesto</span>
-                  <span class="cta-icon-wrap">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </span>
-                </a>
-              </div>
+    <div class="grid" data-reveal>
+      {rest.map((s, i) => (
+        <div class="card">
+          <div class="thumb">
+            <img
+              src={`https://picsum.photos/seed/${seeds[s.id]}/500/300`}
+              alt=""
+              loading="lazy"
+              onerror="this.remove()"
+            />
+          </div>
+          <div class="card-body">
+            <span class="card-num">0{i + 2}</span>
+            <h3 class="card-title">{s.name}</h3>
+            <p class="card-desc">{s.description}</p>
+            <ul class="card-features">
+              {s.features.slice(0, 4).map(f => <li>✓ {f}</li>)}
+            </ul>
+            <div class="card-foot">
+              <span class="price">{s.pricing[0].prefix} ${s.pricing[0].price?.toLocaleString()}</span>
+              <a
+                href={`https://wa.me/${wa}?text=${encodeURIComponent('Hola, me interesa un presupuesto para ' + s.name)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="cta-btn"
+              >
+                Pedir presupuesto
+              </a>
             </div>
           </div>
-        </article>
+        </div>
       ))}
     </div>
   </div>
 </section>
 
-<script>
-  const cards = document.querySelectorAll<HTMLElement>('.service-bento-card');
-
-  const getCenter = (el: HTMLElement) => {
-    const { width, height } = el.getBoundingClientRect();
-    return [width / 2, height / 2];
-  };
-
-  const getCursorAngle = (el: HTMLElement, x: number, y: number) => {
-    const [cx, cy] = getCenter(el);
-    const dx = x - cx;
-    const dy = y - cy;
-    if (dx === 0 && dy === 0) return 0;
-    const radians = Math.atan2(dy, dx);
-    let degrees = radians * (180 / Math.PI) + 90;
-    if (degrees < 0) degrees += 360;
-    return degrees;
-  };
-
-  cards.forEach(card => {
-    card.addEventListener('pointermove', (e: PointerEvent) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const angle = getCursorAngle(card, x, y);
-      card.style.setProperty('--cursor-angle', `${angle.toFixed(1)}deg`);
-    });
-  });
-</script>
-
 <style>
   .services-section {
-    padding: var(--section-py) 2rem;
-    position: relative;
+    padding: var(--section-py) clamp(1.5rem, 4vw, 3rem);
   }
 
   .container {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
   }
 
-  .section-header {
-    max-width: 600px;
-    margin-bottom: 4rem;
-  }
-
-  .section-tag {
-    display: inline-block;
-    font-family: var(--font-body);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-copper);
-    margin-bottom: 1rem;
-  }
-
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4.5vw, 3.25rem);
-    color: var(--color-forge-smoke);
-    letter-spacing: -0.03em;
-    line-height: 1.08;
-    margin-bottom: 1rem;
-  }
-
-  .section-title em {
-    font-style: italic;
-    color: var(--color-copper);
-  }
-
-  .section-sub {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--color-forge-muted);
-    line-height: 1.7;
-  }
-
-  .services-bento {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
+  .section-eyebrow {
+    display: flex;
+    align-items: baseline;
     gap: 1rem;
-    grid-auto-rows: auto;
+    margin-bottom: 3.5rem;
   }
 
-  .service-bento-card {
-    position: relative;
-    grid-column: 1 / -1;
-  }
-
-  .service-bento-card:nth-child(1) { grid-row: span 2; }
-  .service-bento-card:nth-child(4) { grid-row: span 1; }
-
-  .service-bento-card {
-    --cursor-angle: 0deg;
-  }
-
-  .sbc-outer {
-    height: 100%;
-    padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: calc(1.5rem + 0.5rem);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: border-color 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), background 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .service-bento-card:hover .sbc-outer {
-    border-color: rgba(232, 80, 26, 0.25);
-    background: rgba(232, 80, 26, 0.04);
-  }
-
-  .sbc-inner {
-    position: relative;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    background: var(--color-forge-carbon);
-    border-radius: 1.5rem;
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
-    overflow: hidden;
-    gap: 1.5rem;
-  }
-
-  .sbc-inner::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 1.5rem;
-    border: 1px solid transparent;
-    background: conic-gradient(from var(--cursor-angle) at 50% 50%, rgba(232, 80, 26, 0.15), transparent 30%, transparent 70%, rgba(232, 80, 26, 0.15)) border-box;
-    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .service-bento-card:hover .sbc-inner::after {
-    opacity: 1;
-  }
-
-  .card-index {
-    position: absolute;
-    bottom: 1.25rem;
-    right: 1.5rem;
-    font-family: var(--font-display);
-    font-size: 4rem;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.03);
-    line-height: 1;
-    letter-spacing: -0.04em;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .sbc-top {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .card-icon {
-    color: var(--color-copper);
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-  }
-
-  .sbc-top-text {
-    flex: 1;
-  }
-
-  .card-title {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 400;
-    color: var(--color-forge-smoke);
-    letter-spacing: -0.02em;
-    line-height: 1.2;
-    margin-bottom: 0.35rem;
-  }
-
-  .card-desc {
-    font-family: var(--font-body);
-    font-size: 0.925rem;
-    color: var(--color-forge-muted);
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .card-features li {
+  .eyebrow-tag {
     font-family: var(--font-body);
     font-size: 0.78rem;
     font-weight: 500;
-    color: var(--color-forge-subtle);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.06);
-    padding: 0.3rem 0.75rem;
-    border-radius: 9999px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-copper);
     white-space: nowrap;
-    transition: background 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), border-color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
   }
 
-  .service-bento-card:hover .card-features li {
-    border-color: rgba(232,80,26,0.15);
+  .eyebrow-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--color-forge-border);
+  }
+
+  .featured-card {
+    position: relative;
+    display: block;
+    height: 480px;
+    overflow: hidden;
+    text-decoration: none;
+    background: var(--color-forge-iron);
+    border: 1px solid transparent;
+    transition: border-color 0.4s var(--ease-spring);
+  }
+
+  .featured-card:hover {
+    border-color: rgba(217, 123, 63, 0.4);
+  }
+
+  .featured-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.6) contrast(1.1);
+    transform: scale(1.04);
+    transition: transform 0.7s var(--ease-spring), filter 0.7s var(--ease-spring);
+  }
+
+  .featured-card:hover img {
+    transform: scale(1.1);
+    filter: saturate(0.75) contrast(1.1);
+  }
+
+  .featured-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(20,20,20,0.94) 0%, transparent 50%);
+  }
+
+  .featured-body {
+    position: absolute;
+    left: 2rem;
+    right: 2rem;
+    bottom: 2rem;
+    transition: transform 0.4s var(--ease-spring);
+  }
+
+  .featured-card:hover .featured-body {
+    transform: translateY(-4px);
+  }
+
+  .card-num {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--color-bronze);
+    margin-bottom: 0.625rem;
+  }
+
+  .featured-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
     color: var(--color-forge-smoke);
+    margin-bottom: 0.75rem;
   }
 
-  .sbc-pricing {
-    margin-top: auto;
+  .featured-desc {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-forge-muted);
+    max-width: 440px;
+    margin-bottom: 1.125rem;
+  }
+
+  .featured-foot, .card-foot {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
     flex-wrap: wrap;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .sbc-price-block {
+  .price {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.375rem;
+    color: var(--color-copper);
+  }
+
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-forge-smoke);
+    border: 1px solid var(--color-forge-smoke);
+    text-decoration: none;
+    padding: 0.7rem 1.125rem;
+    white-space: nowrap;
+    transition: background 0.3s var(--ease-spring), color 0.3s var(--ease-spring);
+  }
+
+  .cta-btn:hover { background: var(--color-forge-smoke); color: var(--color-forge-black); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .card {
+    background: var(--color-forge-iron);
+    border: 1px solid var(--color-forge-border);
     display: flex;
     flex-direction: column;
-    gap: 0.1rem;
+    transition: border-color 0.4s var(--ease-spring), transform 0.4s var(--ease-spring);
   }
 
-  .price-from {
-    font-family: var(--font-body);
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-forge-muted);
+  .card:hover {
+    border-color: rgba(217, 123, 63, 0.35);
+    transform: translateY(-4px);
   }
 
-  .price-amount {
+  .thumb {
+    height: 170px;
+    overflow: hidden;
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.6);
+    transform: scale(1.05);
+    transition: transform 0.6s var(--ease-spring), filter 0.6s var(--ease-spring);
+  }
+
+  .card:hover .thumb img {
+    transform: scale(1.12);
+    filter: saturate(0.8);
+  }
+
+  .card-body {
+    padding: 1.625rem;
     display: flex;
-    align-items: flex-start;
-    gap: 0.1em;
-    line-height: 1;
+    flex-direction: column;
+    flex: 1;
   }
 
-  .price-currency {
-    font-family: var(--font-body);
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--color-bronze);
-    margin-top: 0.3em;
-  }
-
-  .price-num {
+  .card-title {
     font-family: var(--font-display);
-    font-size: 2.5rem;
-    font-style: italic;
+    font-weight: 400;
+    font-size: 1.3rem;
     color: var(--color-forge-smoke);
-    letter-spacing: -0.03em;
-    line-height: 1;
+    margin: 0.5rem 0 0.625rem;
   }
 
-  .price-consult {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-style: italic;
-    color: var(--color-forge-subtle);
-  }
-
-  .sbc-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+  .card-desc {
     font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: white;
-    background: var(--color-copper);
-    text-decoration: none;
-    padding: 0.625rem 0.625rem 0.625rem 1.25rem;
-    border-radius: 9999px;
-    transition: background 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), transform 0.3s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-    white-space: nowrap;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    color: var(--color-forge-muted);
+    margin-bottom: 0.875rem;
   }
 
-  .sbc-cta:hover {
-    background: var(--color-copper-light);
+  .card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    color: var(--color-forge-muted);
+    line-height: 2;
   }
 
-  .sbc-cta:active {
-    transform: scale(0.97);
+  .card-features li::marker { content: ''; }
+
+  .card-foot {
+    margin-top: auto;
   }
 
-  .sbc-cta .cta-icon-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 9999px;
-    background: rgba(0, 0, 0, 0.2);
-    transition: transform 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+  .card-foot .price { font-size: 1.5rem; }
+  .card-foot .cta-btn { padding: 0.625rem 0.875rem; font-size: 0.72rem; }
+
+  @media (max-width: 1024px) {
+    .grid { grid-template-columns: 1fr 1fr; }
   }
 
-  .sbc-cta:hover .cta-icon-wrap {
-    transform: translateX(2px) scale(1.05);
-  }
-
-  @media (min-width: 1024px) {
-    .service-bento-card:nth-child(1) {
-      grid-column: 1 / 8;
-      grid-row: span 2;
-    }
-    .service-bento-card:nth-child(2) {
-      grid-column: 8 / 13;
-      grid-row: span 1;
-    }
-    .service-bento-card:nth-child(3) {
-      grid-column: 1 / 6;
-      grid-row: span 1;
-    }
-    .service-bento-card:nth-child(4) {
-      grid-column: 6 / 13;
-      grid-row: span 1;
-    }
-  }
-
-  @media (max-width: 1024px) and (min-width: 769px) {
-    .services-bento {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .service-bento-card { grid-column: auto !important; grid-row: auto !important; }
-  }
-
-  @media (max-width: 768px) {
-    .services-bento { gap: 0.75rem; }
-    .service-bento-card { grid-column: 1 / -1 !important; grid-row: auto !important; }
-    .sbc-inner { padding: 1.5rem; gap: 1rem; }
-    .card-index { font-size: 3rem; bottom: 1rem; right: 1.25rem; }
-    .price-num { font-size: 1.75rem; }
+  @media (max-width: 640px) {
+    .featured-card { height: 380px; }
+    .grid { grid-template-columns: 1fr; }
+    .featured-foot, .card-foot { flex-direction: column; align-items: flex-start; }
   }
 </style>

@@ -1,34 +1,31 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Gascogne";
-  src: url("/fonts/Gascogne-Serial-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
+  /* Base palette — dark carbon w/ copper accent (see handoff) */
   --color-forge-black:   #0A0A0A;
   --color-forge-carbon:  #141414;
-  --color-forge-iron:    #1E1E1E;
+  --color-forge-iron:    #1D1D1D;
   --color-forge-steel:   #2A2A2A;
   --color-forge-mid:     #3A3A3A;
-  --color-forge-muted:   #999999;
-  --color-forge-subtle:  #8B8B8B;
-  --color-forge-smoke:   #F5F5F0;
 
-  --color-copper:        #E8501A;
-  --color-copper-light:  #FF6B35;
-  --color-copper-dark:   #C43E12;
-  --color-bronze:        #C9A24A;
-  --color-bronze-light:  #DEB96A;
+  --color-forge-smoke:   #F2EDE1;
+  --color-forge-muted:   rgba(242, 237, 225, 0.68);
+  --color-forge-subtle:  rgba(242, 237, 225, 0.5);
+  --color-forge-border:  rgba(242, 237, 225, 0.14);
 
-  --font-display: "Gascogne", Georgia, serif;
-  --font-body:    "Satoshi", system-ui, sans-serif;
+  --color-copper:        #D97B3F;
+  --color-copper-light:  #E8934F;
+  --color-copper-dark:   #B5652F;
+  --color-bronze:        #8A8F87;
+  --color-bronze-light:  #A5AA9F;
+
+  --font-display: "
+  ", cursive;
+  --font-body:    "Geomini", system-ui, sans-serif;
   --font-mono:    "Space Mono", ui-monospace, monospace;
 
   --section-py: clamp(6rem, 12vw, 10rem);
+  --radius: 0;
 
   --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);

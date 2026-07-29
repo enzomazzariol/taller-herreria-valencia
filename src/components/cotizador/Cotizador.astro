@@ -1,53 +1,307 @@
 ---
 import content from '../../data/content.json';
-import StepProducto from './StepProducto.astro';
-import StepDimensiones from './StepDimensiones.astro';
-import StepExtras from './StepExtras.astro';
-import StepResumen from './StepResumen.astro';
-import './cotizador.css';
-
 const wa = content.contact.whatsapp;
+
+const types = [
+  { label: 'Techo', base: content.services.find(s => s.id === 'techos')!.pricing[0].price! },
+  { label: 'Pérgola', base: content.services.find(s => s.id === 'pergolas')!.pricing[0].price! },
+  { label: 'Portón', base: content.services.find(s => s.id === 'portones')!.pricing[0].price! },
+  { label: 'Puerta', base: content.services.find(s => s.id === 'puertas')!.pricing[0].price! },
+];
+
+const materials = [
+  { label: 'Aluminio', mult: 1 },
+  { label: 'Hierro forjado', mult: 1.15 },
+  { label: 'Acero inoxidable', mult: 1.35 },
+];
+
+const finishes = [
+  { label: 'Pintura al horno', mult: 1 },
+  { label: 'Galvanizado', mult: 1.08 },
+  { label: 'Natural pulido', mult: 1.05 },
+];
 ---
 
-<section id="cotizador" class="cotizador-section" data-wa={wa}>
-  <div class="cot-container">
-    <div class="cot-header" data-reveal>
-      <span class="cot-tag">Cotizador</span>
-      <h2 class="cot-title">
-        Tu presupuesto<br/>
-        <em>en 30 segundos</em>
-      </h2>
-      <p class="cot-sub">
-        Selecciona, personaliza y recibe tu precio estimado al instante.
-      </p>
+<section id="cotizador" class="cot-section">
+  <div class="container">
+    <div class="section-eyebrow" data-reveal>
+      <span class="eyebrow-tag">04 — Arma tu ficha de trabajo</span>
+      <div class="eyebrow-rule"></div>
     </div>
 
-    <div class="cot-app" data-reveal data-reveal-delay="200">
-      <div class="cot-progress">
-        <div class="cot-progress-bar" id="cotProgress"></div>
+    <div class="cot-grid" data-reveal>
+      <div class="cot-form">
+        <div class="chip-group">
+          <span class="group-label">Tipo de trabajo</span>
+          <div class="chips" data-group="type">
+            {types.map((t, i) => (
+              <button type="button" class:list={['chip', i === 0 && 'active']} data-value={t.label} data-base={t.base}>{t.label}</button>
+            ))}
+          </div>
+        </div>
+
+        <div class="chip-group">
+          <span class="group-label">Material</span>
+          <div class="chips" data-group="material">
+            {materials.map((m, i) => (
+              <button type="button" class:list={['chip', i === 0 && 'active']} data-value={m.label} data-mult={m.mult}>{m.label}</button>
+            ))}
+          </div>
+        </div>
+
+        <div class="chip-group">
+          <span class="group-label">Acabado</span>
+          <div class="chips" data-group="finish">
+            {finishes.map((f, i) => (
+              <button type="button" class:list={['chip', i === 0 && 'active']} data-value={f.label} data-mult={f.mult}>{f.label}</button>
+            ))}
+          </div>
+        </div>
       </div>
 
-      <div class="cot-steps-wrap" id="cotStepsWrap">
-        <StepProducto />
-        <StepDimensiones />
-        <StepExtras />
-        <StepResumen />
-      </div>
-
-      <div class="cot-nav" id="cotNav">
-        <button class="cot-next" id="cotNext" disabled>
-          <span>Siguiente</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </button>
+      <div class="ticket">
+        <div class="ticket-head">
+          <span>Ficha de trabajo</span>
+          <span>Flamingo · Valencia</span>
+        </div>
+        <div class="ticket-rows">
+          <div class="ticket-row"><span>Tipo</span><span id="cotType">Techo</span></div>
+          <div class="ticket-row"><span>Material</span><span id="cotMaterial">Aluminio</span></div>
+          <div class="ticket-row"><span>Acabado</span><span id="cotFinish">Pintura al horno</span></div>
+        </div>
+        <span class="estimate-label">Estimado orientativo</span>
+        <div class="estimate-value" id="cotEstimate">$0 – $0</div>
+        <a href="#" id="cotConfirm" class="ticket-cta" target="_blank" rel="noopener noreferrer">Confirmar con un asesor</a>
+        <p class="ticket-note">No vinculante — el presupuesto final se confirma tras la visita de medición.</p>
       </div>
     </div>
   </div>
 </section>
 
-<script>
-  import { initCotizador } from './controller';
-  const wa = document.querySelector<HTMLElement>('#cotizador')!.dataset.wa!;
-  initCotizador(wa);
+<script define:vars={{ wa }}>
+  const groups = document.querySelectorAll('.chips');
+  const state = { type: 'Techo', base: groups[0].querySelector('.chip').dataset.base, material: 'Aluminio', materialMult: 1, finish: 'Pintura al horno', finishMult: 1 };
+
+  const fmt = (n) => `$${Math.round(n).toLocaleString('en-US')}`;
+
+  function update() {
+    document.getElementById('cotType').textContent = state.type;
+    document.getElementById('cotMaterial').textContent = state.material;
+    document.getElementById('cotFinish').textContent = state.finish;
+
+    const low = state.base * state.materialMult * state.finishMult;
+    const high = low * 1.35;
+    const estimateEl = document.getElementById('cotEstimate');
+    estimateEl.textContent = `${fmt(low)} – ${fmt(high)}`;
+    estimateEl.classList.add('pulse');
+    setTimeout(() => estimateEl.classList.remove('pulse'), 250);
+
+    const msg = `Hola, arme una ficha de trabajo:\n\n• Tipo: ${state.type}\n• Material: ${state.material}\n• Acabado: ${state.finish}\n• Estimado: ${fmt(low)} – ${fmt(high)}\n\n¿Podemos coordinar una visita de medición?`;
+    document.getElementById('cotConfirm').href = `https://wa.me/${wa}?text=${encodeURIComponent(msg)}`;
+  }
+
+  groups.forEach((group) => {
+    const key = group.dataset.group;
+    group.querySelectorAll('.chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        group.querySelectorAll('.chip').forEach((c) => c.classList.remove('active'));
+        chip.classList.add('active');
+
+        if (key === 'type') {
+          state.type = chip.dataset.value;
+          state.base = Number(chip.dataset.base);
+        } else if (key === 'material') {
+          state.material = chip.dataset.value;
+          state.materialMult = Number(chip.dataset.mult);
+        } else if (key === 'finish') {
+          state.finish = chip.dataset.value;
+          state.finishMult = Number(chip.dataset.mult);
+        }
+        update();
+      });
+    });
+  });
+
+  update();
 </script>
+
+<style>
+  .cot-section {
+    padding: 0 clamp(1.5rem, 4vw, 3rem) var(--section-py);
+  }
+
+  .container {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .eyebrow-tag {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-copper);
+    white-space: nowrap;
+  }
+
+  .eyebrow-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--color-forge-border);
+  }
+
+  .cot-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3.5rem;
+  }
+
+  .chip-group { margin-bottom: 2rem; }
+  .chip-group:last-child { margin-bottom: 0; }
+
+  .group-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-forge-muted);
+    margin-bottom: 0.875rem;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+
+  .chip {
+    cursor: pointer;
+    padding: 0.7rem 1.125rem;
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    background: transparent;
+    color: var(--color-forge-smoke);
+    border: 1px solid var(--color-forge-border);
+    transition: border-color 0.3s var(--ease-spring), background 0.3s var(--ease-spring), transform 0.2s var(--ease-spring);
+  }
+
+  .chip:hover:not(.active) {
+    border-color: var(--color-copper);
+    color: var(--color-copper);
+  }
+
+  .chip:active {
+    transform: scale(0.96);
+  }
+
+  .chip.active {
+    background: var(--color-copper);
+    color: var(--color-forge-black);
+    border-color: var(--color-copper);
+  }
+
+  .ticket {
+    position: relative;
+    background: var(--color-forge-iron);
+    border: 1px solid var(--color-forge-border);
+    padding: 2.5rem;
+  }
+
+  .ticket-head {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-forge-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .ticket-rows {
+    border-top: 1px solid var(--color-forge-border);
+    border-bottom: 1px solid var(--color-forge-border);
+    padding: 1.25rem 0;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .ticket-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-forge-smoke);
+  }
+
+  .ticket-row span:first-child { color: var(--color-forge-muted); }
+
+  .estimate-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-forge-muted);
+    margin-bottom: 0.625rem;
+  }
+
+  .estimate-value {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 2.75rem;
+    color: var(--color-copper);
+    margin-bottom: 1.625rem;
+    transition: transform 0.3s var(--ease-spring), opacity 0.3s var(--ease-spring);
+  }
+
+  .estimate-value.pulse {
+    transform: scale(1.05);
+    opacity: 0.7;
+  }
+
+  .ticket {
+    transition: border-color 0.4s var(--ease-spring);
+  }
+
+  .ticket-cta {
+    display: block;
+    text-align: center;
+    background: var(--color-copper);
+    color: var(--color-forge-black);
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 1rem;
+    transition: background 0.3s var(--ease-spring);
+  }
+
+  .ticket-cta:hover { background: var(--color-copper-light); }
+
+  .ticket-note {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: var(--color-forge-muted);
+    text-align: center;
+    margin-top: 0.875rem;
+  }
+
+  @media (max-width: 900px) {
+    .cot-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  }
+</style>

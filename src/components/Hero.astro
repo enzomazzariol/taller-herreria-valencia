@@ -1,125 +1,50 @@
 ---
 import content from '../data/content.json';
-const wa = content.contact.whatsapp;
-const waMsg = encodeURIComponent(content.contact.whatsapp_message);
-const stats = content.stats;
+const b = content.business;
 ---
 
 <section id="inicio" class="hero">
   <div class="hero-bg" aria-hidden="true">
-    <div class="bg-radial"></div>
+    <img
+      src="https://picsum.photos/seed/yunque-taller-2/1800/1200"
+      alt=""
+      class="hero-photo"
+      onerror="this.closest('.hero-bg').classList.add('no-photo'); this.remove()"
+    />
     <div class="bg-grid"></div>
-    <div class="bg-vignette"></div>
-  </div>
-
-  <div class="sparks" aria-hidden="true">
-    {Array.from({ length: 14 }).map((_, i) => (
-      <span class="spark" style={`--i:${i}; --x:${20 + (i * 5.5) % 65}%; --d:${(i * 0.37) % 3}s; --s:${3 + (i * 1.1) % 5}px`}></span>
-    ))}
+    <div class="bg-wash"></div>
+    <div class="bg-gradient"></div>
+    <div class="bg-scrim-corner"></div>
+    <div class="bg-scrim-top"></div>
   </div>
 
   <div class="hero-content">
-    <div class="hero-badge" data-reveal data-reveal-delay="100">
-      <span class="badge-dot"></span>
-      <span>30+ años forjando calidad en Venezuela</span>
+    <div class="kicker" data-reveal data-reveal-delay="100">
+      <span class="kicker-line" aria-hidden="true"></span>
+      Taller de herrería — Valencia, Carabobo
     </div>
 
     <h1 class="hero-title" data-reveal data-reveal-delay="200">
-      Tu hogar merece<br/>
-      <em>hierro que dure</em><br/>
-      toda la vida.
+      LA MEJOR<br />
+      HERRERÍA DE<br />
+      <span class="accent">VALENCIA, CARABOBO</span>
     </h1>
 
-    <p class="hero-sub" data-reveal data-reveal-delay="300">
-      Techos, pérgolas, portones y puertas de seguridad.
-      Fabricados a medida en Valencia, instalados en toda Venezuela.
-    </p>
-
-    <div class="hero-ctas" data-reveal data-reveal-delay="400">
-      <a
-        href={`https://wa.me/${wa}?text=${waMsg}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="cta-primary"
-      >
-        <span>Solicitar presupuesto gratis</span>
-        <span class="cta-icon-wrap">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7"/>
-          </svg>
-        </span>
-      </a>
-      <a href="#precios" class="cta-secondary">
-        Ver precios
-        <span class="cta-icon-wrap">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 5v14M5 12l7 7 7-7"/>
-          </svg>
-        </span>
-      </a>
+    <div class="hero-row" data-reveal data-reveal-delay="300">
+      <p class="hero-sub">
+        Fabricamos e instalamos portones, rejas, barandillas, escaleras metálicas y estructuras de acero a medida.
+        Más de {b.experience_years} años forjando confianza en Valencia, Carabobo — presupuesto claro y acabados que resisten el tiempo.
+      </p>
+      <a href="#servicios" class="hero-cta">Ver catálogo →</a>
     </div>
 
-    <div class="hero-trust" data-reveal data-reveal-delay="500">
-      <span class="trust-item">Instalación incluida</span>
-      <span class="trust-sep" aria-hidden="true"></span>
-      <span class="trust-item">Entrega en 7 días</span>
-      <span class="trust-sep" aria-hidden="true"></span>
-      <span class="trust-item">Cerradura italiana</span>
+    <div class="hero-trust" data-reveal data-reveal-delay="400">
+      <span class="trust-item"><span class="check">✓</span>Presupuesto en 24h</span>
+      <span class="trust-item"><span class="check">✓</span>Entrega en {b.delivery_days} días</span>
+      <span class="trust-item"><span class="check">✓</span>Materiales certificados</span>
     </div>
   </div>
-
-  <div class="hero-stats" data-reveal>
-    {stats.map((s, i) => (
-      <div class="stat-double-bezel">
-        <div class="stat-outer">
-          <div class="stat-card">
-            <div class="stat-accent" aria-hidden="true"></div>
-            <div class="stat-num-wrap">
-              <span class="stat-num" data-value={s.value} data-suffix={s.suffix}>{s.value}</span>
-              {s.suffix && <span class="stat-suffix">{s.suffix}</span>}
-            </div>
-            <span class="stat-label">{s.label}</span>
-          </div>
-        </div>
-      </div>
-    ))}
-  </div>
-
 </section>
-
-<script>
-  const counters = document.querySelectorAll<HTMLElement>('.stat-num');
-
-  const animateCounter = (el: HTMLElement) => {
-    const target = parseInt(el.dataset.value ?? '0', 10);
-    const suffix = el.dataset.suffix ?? '';
-    const duration = 1800;
-    const start = performance.now();
-
-    const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      el.textContent = Math.round(eased * target) + suffix;
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-
-    requestAnimationFrame(tick);
-  };
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          animateCounter(e.target as HTMLElement);
-          observer.unobserve(e.target);
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-
-  counters.forEach(c => observer.observe(c));
-</script>
 
 <style>
   .hero {
@@ -127,333 +52,179 @@ const stats = content.stats;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding: clamp(6.5rem, 12vw, 8rem) clamp(1.5rem, 4vw, 3rem) 2rem;
     overflow: hidden;
-    padding: 8rem 2rem 2rem;
   }
 
   .hero-bg {
     position: absolute;
     inset: 0;
-    pointer-events: none;
+    overflow: hidden;
   }
 
-  .bg-radial {
+  .hero-photo {
     position: absolute;
     inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.55) contrast(1.12) brightness(0.75);
+    animation: hero-kenburns 18s ease-out forwards;
+  }
+
+  @keyframes hero-kenburns {
+    from { transform: scale(1.08); }
+    to { transform: scale(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-photo { animation: none; }
+  }
+
+  .hero-bg.no-photo {
     background:
-      radial-gradient(ellipse 80% 60% at 50% 110%, rgba(232, 80, 26, 0.18) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 40% at 20% 80%, rgba(201, 162, 74, 0.08) 0%, transparent 60%);
+      radial-gradient(ellipse 70% 50% at 30% 20%, rgba(217, 123, 63, 0.1) 0%, transparent 60%),
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 14px),
+      var(--color-forge-black);
   }
 
   .bg-grid {
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 90% 70% at 50% 50%, black 30%, transparent 100%);
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, black 20%, transparent 100%);
   }
 
-  .bg-vignette {
+  .bg-wash {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 100% 100% at 50% 0%, transparent 40%, rgba(10,10,10,0.6) 100%);
+    background: rgba(217, 123, 63, 0.1);
+    mix-blend-mode: multiply;
   }
 
-  .sparks {
+  .bg-gradient {
     position: absolute;
     inset: 0;
-    pointer-events: none;
-    overflow: hidden;
+    background: linear-gradient(180deg, rgba(20,20,20,0) 20%, rgba(20,20,20,0.94) 96%);
   }
 
-  .spark {
+  .bg-scrim-corner {
     position: absolute;
+    left: 0;
     bottom: 0;
-    left: var(--x);
-    width: var(--s);
-    height: var(--s);
-    border-radius: 50%;
-    background: var(--color-copper);
-    animation: spark-rise calc(2.5s + var(--d)) ease-in infinite;
-    animation-delay: calc(var(--d) + var(--i) * 0.22s);
-    opacity: 0;
+    width: 65%;
+    height: 60%;
+    background: radial-gradient(ellipse at bottom left, rgba(20,20,20,0.9) 0%, rgba(20,20,20,0.5) 45%, transparent 75%);
   }
 
-  .spark:nth-child(even) { background: var(--color-bronze); }
-  .spark:nth-child(3n) { width: calc(var(--s) * 0.6); height: calc(var(--s) * 0.6); }
+  .bg-scrim-top {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 130px;
+    background: linear-gradient(180deg, rgba(20,20,20,0.9) 0%, transparent 100%);
+  }
 
   .hero-content {
     position: relative;
     z-index: 1;
-    max-width: 780px;
-    text-align: center;
+    margin-top: auto;
+    max-width: 1100px;
+  }
+
+  .kicker {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    gap: 0.75rem;
     font-family: var(--font-body);
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--color-forge-subtle);
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 0.4rem 1rem;
-    border-radius: 9999px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-bronze);
+    margin-bottom: 0.875rem;
   }
 
-  .badge-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--color-copper);
-    animation: pulse-dot 2s ease-in-out infinite;
-    flex-shrink: 0;
+  .kicker-line {
+    width: 34px;
+    height: 1px;
+    background: var(--color-bronze);
   }
 
   .hero-title {
     font-family: var(--font-display);
-    font-size: clamp(2.75rem, 7vw, 5.5rem);
     font-weight: 400;
+    font-size: clamp(2.6rem, 6.4vw, 5rem);
+    line-height: 1.06;
+    letter-spacing: -0.01em;
     color: var(--color-forge-smoke);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
   }
 
-  .hero-title em {
-    font-style: italic;
-    color: var(--color-copper);
+  .hero-title .accent { color: var(--color-copper); }
+
+  .hero-row {
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2.5rem;
+    flex-wrap: wrap;
   }
 
   .hero-sub {
     font-family: var(--font-body);
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    color: var(--color-forge-subtle);
-    max-width: 540px;
-    line-height: 1.7;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--color-forge-muted);
+    max-width: 460px;
   }
 
-  .hero-ctas {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .cta-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    font-weight: 700;
-    color: white;
+  .hero-cta {
+    flex-shrink: 0;
     background: var(--color-copper);
-    text-decoration: none;
-    padding: 0.75rem 0.75rem 0.75rem 1.5rem;
-    border-radius: 9999px;
-    transition: background 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), transform 0.3s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), box-shadow 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-    box-shadow: 0 4px 24px rgba(232, 80, 26, 0.3);
-  }
-
-  .cta-primary:hover {
-    background: var(--color-copper-light);
-    box-shadow: 0 8px 32px rgba(232, 80, 26, 0.45);
-  }
-
-  .cta-primary:active {
-    transform: scale(0.97);
-  }
-
-  .cta-primary .cta-icon-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 9999px;
-    background: rgba(0, 0, 0, 0.2);
-    transition: transform 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .cta-primary:hover .cta-icon-wrap {
-    transform: translateX(3px) scale(1.05);
-  }
-
-  .cta-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    color: var(--color-forge-black);
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--color-forge-subtle);
     text-decoration: none;
-    padding: 0.75rem 0.75rem 0.75rem 1.25rem;
-    border-radius: 9999px;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), border-color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), transform 0.3s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+    padding: 1rem 1.75rem;
+    white-space: nowrap;
+    transition: background 0.3s var(--ease-spring), transform 0.3s var(--ease-spring), letter-spacing 0.3s var(--ease-spring);
+    display: inline-block;
   }
 
-  .cta-secondary:hover {
-    color: var(--color-forge-smoke);
-    border-color: rgba(255,255,255,0.2);
+  .hero-cta:hover {
+    background: var(--color-copper-light);
+    transform: translateX(3px);
+    letter-spacing: 0.01em;
   }
 
-  .cta-secondary:active {
-    transform: scale(0.97);
-  }
-
-  .cta-secondary .cta-icon-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 9999px;
-    background: rgba(255, 255, 255, 0.06);
-    transition: transform 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), background 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .cta-secondary:hover .cta-icon-wrap {
-    transform: translateY(-1px) scale(1.05);
-    background: rgba(255, 255, 255, 0.1);
-  }
+  .hero-cta:active { transform: translateX(3px) scale(0.97); }
 
   .hero-trust {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    gap: 2.125rem;
+    margin-top: 1rem;
     flex-wrap: wrap;
-    justify-content: center;
   }
 
   .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-family: var(--font-body);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--color-forge-muted);
   }
 
-  .trust-sep {
-    width: 3px;
-    height: 3px;
-    border-radius: 50%;
-    background: var(--color-forge-steel);
-  }
+  .check { color: var(--color-copper); }
 
-  .hero-stats {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 900px;
-    margin-top: 6rem;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-  }
-
-  .stat-double-bezel {
-    padding: 0.375rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: calc(1.25rem + 0.375rem);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .stat-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1.75rem 1.75rem 1.5rem;
-    gap: 0.35rem;
-    background: var(--color-forge-black);
-    border-radius: 1.25rem;
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
-    transition: background 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .stat-card:hover {
-    background: rgba(232, 80, 26, 0.04);
-  }
-
-  .stat-accent {
-    position: absolute;
-    top: -1px;
-    left: 1.75rem;
-    width: 28px;
-    height: 2px;
-    background: var(--color-copper);
-    border-radius: 0 0 2px 2px;
-    transition: width 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .stat-card:hover .stat-accent { width: 48px; }
-
-  .stat-num-wrap {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.1em;
-    line-height: 1;
-  }
-
-  .stat-num {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 3.75rem);
-    font-weight: 400;
-    color: var(--color-forge-smoke);
-    letter-spacing: -0.04em;
-    line-height: 0.95;
-    font-style: italic;
-  }
-
-  .stat-suffix {
-    font-family: var(--font-display);
-    font-size: clamp(1.25rem, 2.5vw, 1.875rem);
-    color: var(--color-copper);
-    font-style: italic;
-    margin-top: 0.15em;
-    line-height: 1;
-  }
-
-  .stat-label {
-    font-family: var(--font-body);
-    font-size: 0.72rem;
-    font-weight: 500;
-    color: var(--color-forge-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-
-  @media (max-width: 768px) {
-    .hero-stats {
-      grid-template-columns: repeat(2, 1fr);
-      margin-top: 4rem;
-      gap: 0.5rem;
-    }
-    .stat-double-bezel {
-      padding: 0.25rem;
-      border-radius: calc(1rem + 0.25rem);
-    }
-    .stat-card {
-      padding: 1.25rem;
-      border-radius: 1rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hero { padding-top: 7rem; }
-    .hero-stats { margin-top: 3rem; }
+  @media (max-width: 640px) {
+    .hero-row { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+    .hero-cta { width: 100%; text-align: center; }
   }
 </style>

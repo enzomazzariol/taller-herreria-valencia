@@ -9,21 +9,30 @@ const ratios = [
 ];
 
 const categories = [
-  'Techo','Portón','Pérgola','Puerta','Techo',
-  'Pérgola','Portón','Techo','Puerta','Portón',
-  'Techo','Pérgola','Portón','Techo','Puerta',
+  'Techo','Proceso','Pérgola','Puerta','Techo',
+  'Proceso','Portón','Techo','Puerta','Portón',
+  'Techo','Pérgola','Portón','Proceso','Puerta',
   'Pérgola','Techo','Portón','Pérgola','Techo','Puerta'
+];
+
+const captions = [
+  'Techo de estacionamiento','En proceso — soldadura','Pérgola de jardín','Puerta de seguridad reforzada','Techo a medida',
+  'En proceso — corte de plancha','Portón corredizo','Techo para 2 vehículos','Puerta con cerradura italiana','Portón batiente',
+  'Techo con lámina de aluminio','Pérgola con cubierta','Portón residencial','En proceso — acabado y pintura','Puerta reforzada',
+  'Pérgola elegante','Techo industrial','Portón de seguridad','Pérgola funcional','Techo terminado','Puerta de entrada'
 ];
 
 const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
   const num = String(i + 1).padStart(2, '0');
   const r = ratios[i];
   const h = r === 'tall' ? 340 : r === 'wide' ? 200 : 220;
+  const w = r === 'tall' ? 400 : r === 'wide' ? 800 : 500;
   return {
     id: String(i + 1),
     num,
-    src: `/images/gallery/gallery-${num}.jpg`,
+    src: `https://picsum.photos/seed/gallery-${num}/${w}/${h * 2}`,
     cat: categories[i],
+    caption: captions[i],
     height: h,
     ratio: r,
   };
@@ -32,24 +41,27 @@ const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
 
 <section id="galeria" class="gallery-section">
   <div class="container">
-    <div class="section-header" data-reveal>
-      <span class="section-tag">Galería</span>
-      <h2 class="section-title">
-        Nuestro trabajo<br/>
-        <em>habla por sí solo</em>
-      </h2>
-      <p class="section-sub">21 proyectos reales. Todos en Valencia y Carabobo.</p>
+    <div class="section-eyebrow" data-reveal>
+      <span class="eyebrow-tag">05 — Galería</span>
+      <div class="eyebrow-rule"></div>
     </div>
 
     <div class="gallery-filters" role="tablist" data-reveal>
-      {['Todos','Techos','Portones','Pérgolas','Puertas'].map((cat, i) => (
+      {[
+        { label: 'Todos', value: 'all' },
+        { label: 'Techos', value: 'Techo' },
+        { label: 'Pérgolas', value: 'Pérgola' },
+        { label: 'Portones', value: 'Portón' },
+        { label: 'Puertas', value: 'Puerta' },
+        { label: 'Proceso', value: 'Proceso' },
+      ].map((f, i) => (
         <button
           class:list={['filter-btn', i === 0 && 'active']}
-          data-filter={cat === 'Todos' ? 'all' : cat.slice(0,-1)}
+          data-filter={f.value}
           role="tab"
           aria-selected={i === 0}
         >
-          {cat}
+          {f.label}
         </button>
       ))}
     </div>
@@ -74,12 +86,7 @@ const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
                   decoding="async"
                   onerror="this.closest('.masonry-item').classList.add('placeholder')"
                 />
-                <div class="item-overlay">
-                  <span class="item-cat">{item.cat}</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
-                  </svg>
-                </div>
+                <span class="item-caption">{item.caption}</span>
               </div>
             </div>
             <div class="item-placeholder" aria-hidden="true">
@@ -290,71 +297,60 @@ const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
 
 <style>
   .gallery-section {
-    padding: var(--section-py) 2rem;
+    padding: 0 clamp(1.5rem, 4vw, 3rem) var(--section-py);
   }
 
   .container {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
   }
 
-  .section-header {
-    max-width: 600px;
-    margin-bottom: 3rem;
+  .section-eyebrow {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
   }
 
-  .section-tag {
-    display: inline-block;
+  .eyebrow-tag {
     font-family: var(--font-body);
-    font-size: 0.7rem;
-    font-weight: 700;
+    font-size: 0.78rem;
+    font-weight: 500;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-copper);
-    margin-bottom: 1rem;
+    white-space: nowrap;
   }
 
-  .section-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 4.5vw, 3.25rem);
-    color: var(--color-forge-smoke);
-    letter-spacing: -0.03em;
-    line-height: 1.08;
-    margin-bottom: 1rem;
-  }
-
-  .section-title em { font-style: italic; color: var(--color-copper); }
-
-  .section-sub {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--color-forge-muted);
+  .eyebrow-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--color-forge-border);
   }
 
   .gallery-filters {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .filter-btn {
     font-family: var(--font-body);
-    font-size: 0.82rem;
-    font-weight: 600;
+    font-size: 0.78rem;
+    font-weight: 500;
     color: var(--color-forge-muted);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    padding: 0.5rem 1.25rem;
-    border-radius: 9999px;
+    background: transparent;
+    border: 1px solid var(--color-forge-border);
+    padding: 0.625rem 1.125rem;
     cursor: pointer;
-    transition: color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), background 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), border-color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
+    transition: color 0.3s var(--ease-spring), background 0.3s var(--ease-spring), border-color 0.3s var(--ease-spring);
   }
 
   .filter-btn:hover { color: var(--color-forge-smoke); }
 
   .filter-btn.active {
-    color: white;
+    color: var(--color-forge-black);
     background: var(--color-copper);
     border-color: var(--color-copper);
   }
@@ -375,44 +371,29 @@ const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
     top: 0;
     left: 0;
     background: var(--color-forge-iron);
-    border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    border: none;
+    border: 1px solid var(--color-forge-border);
     padding: 0;
     will-change: transform, opacity, filter;
+    transition: border-color 0.3s var(--ease-spring);
   }
 
   .masonry-item:hover {
     z-index: 2;
+    border-color: var(--color-copper);
   }
 
   .masonry-db-outer {
     width: 100%;
     height: 100%;
-    padding: 0.25rem;
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: calc(10px + 0.25rem);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: border-color 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1)), background 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .masonry-item:hover .masonry-db-outer {
-    border-color: rgba(232, 80, 26, 0.25);
-    background: rgba(232, 80, 26, 0.04);
   }
 
   .masonry-img-wrap {
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 10px;
     overflow: hidden;
-    transition: transform 0.5s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .masonry-item:hover .masonry-img-wrap {
-    transform: scale(0.96);
   }
 
   .masonry-img-wrap img {
@@ -420,32 +401,21 @@ const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
     height: 100%;
     object-fit: cover;
     display: block;
+    filter: saturate(0.6);
   }
 
-  .item-overlay {
+  .item-caption {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(10,10,10,0.8) 0%, transparent 60%);
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding: 0.875rem;
-    opacity: 0;
-    transition: opacity 0.4s var(--ease-spring, cubic-bezier(0.32, 0.72, 0, 1));
-  }
-
-  .masonry-item:hover .item-overlay { opacity: 1; }
-
-  .item-cat {
+    left: 10px;
+    bottom: 10px;
     font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.72rem;
+    font-weight: 500;
     color: var(--color-forge-smoke);
+    background: rgba(20, 20, 20, 0.85);
+    padding: 0.5rem 0.75rem;
+    max-width: calc(100% - 20px);
   }
-
-  .item-overlay svg { color: var(--color-copper); }
 
   .masonry-item.placeholder img { display: none; }
 

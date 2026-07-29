@@ -13,7 +13,11 @@
     "whatsapp_message": "Hola, me interesa solicitar un presupuesto",
     "instagram": "https://www.instagram.com/flamingoservices_/",
     "facebook": "https://www.facebook.com/profile.php?id=61554200556790",
-    "address": "Calle 94 Cantaura, Valencia 2001, Carabobo, Venezuela"
+    "address": "Calle 94 Cantaura, Valencia 2001, Carabobo, Venezuela",
+    "coordinates": "10°10'N · 68°00'O",
+    "lat": 10.1621,
+    "lon": -68.0077,
+    "hours": "Lun–Vie · 8:00–18:00"
   },
   "coverage": [
     { "city": "Valencia", "state": "Carabobo", "primary": true, "distance_km": 0 },
@@ -102,18 +106,23 @@
   "process": [
     {
       "step": 1,
-      "title": "Solicita tu presupuesto",
-      "description": "Escríbenos por WhatsApp o llámanos. Rápido, sin compromiso. Para cualquier techo, portón o puerta de seguridad."
+      "title": "Consulta",
+      "description": "Visitamos el sitio y entendemos la necesidad."
     },
     {
       "step": 2,
-      "title": "Coordinamos la instalación",
-      "description": "Acordamos el día de instalación que mejor te convenga. Nuestro equipo llega puntual con todos los materiales."
+      "title": "Diseño",
+      "description": "Plano y presupuesto cerrado antes de forjar."
     },
     {
       "step": 3,
-      "title": "Disfruta tu espacio",
-      "description": "Protege tu carro del sol, recibe visitas bajo tu nueva pérgola, o duerme tranquilo con tu puerta de seguridad instalada."
+      "title": "Forja y Fabricación",
+      "description": "Corte, soldadura y acabado en nuestro taller de Valencia — cada pieza supervisada a mano."
+    },
+    {
+      "step": 4,
+      "title": "Instalación",
+      "description": "Montaje en sitio con acabado final y garantía."
     }
   ],
   "reasons": [
