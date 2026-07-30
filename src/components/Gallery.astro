@@ -16,9 +16,9 @@ const categories = [
 ];
 
 const captions = [
-  'Techo de estacionamiento','En proceso — soldadura','Pérgola de jardín','Puerta de seguridad reforzada','Techo a medida',
-  'En proceso — corte de plancha','Portón corredizo','Techo para 2 vehículos','Puerta con cerradura italiana','Portón batiente',
-  'Techo con lámina de aluminio','Pérgola con cubierta','Portón residencial','En proceso — acabado y pintura','Puerta reforzada',
+  'Techo de estacionamiento','En proceso: soldadura','Pérgola de jardín','Puerta de seguridad reforzada','Techo a medida',
+  'En proceso: corte de plancha','Portón corredizo','Techo para 2 vehículos','Puerta con cerradura italiana','Portón batiente',
+  'Techo con lámina de aluminio','Pérgola con cubierta','Portón residencial','En proceso: acabado y pintura','Puerta reforzada',
   'Pérgola elegante','Techo industrial','Portón de seguridad','Pérgola funcional','Techo terminado','Puerta de entrada'
 ];
 
@@ -41,6 +41,7 @@ const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
 
 <section id="galeria" class="gallery-section">
   <div class="container">
+    <h2 class="section-title">Galería de trabajos realizados en Valencia y Carabobo</h2>
     <div class="gallery-filters" role="tablist" data-reveal>
       {[
         { label: 'Todos', value: 'all' },
@@ -70,13 +71,13 @@ const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
             data-category={item.cat}
             data-src={item.src}
             data-height={item.height}
-            aria-label={`Ver imagen ${item.num} — ${item.cat}`}
+            aria-label={`Ver imagen ${item.num}: ${item.cat}`}
           >
             <div class="masonry-db-outer">
               <div class="masonry-img-wrap">
                 <img
                   src={item.src}
-                  alt={`Trabajo de herrería ${item.cat.toLowerCase()} — Flamingo Services Valencia`}
+                  alt={`Trabajo de herrería ${item.cat.toLowerCase()} en Flamingo Services Valencia`}
                   loading="lazy"
                   decoding="async"
                   onerror="this.closest('.masonry-item').classList.add('placeholder')"
@@ -293,6 +294,14 @@ const masonryItems = Array.from({ length: TOTAL }).map((_, i) => {
 <style>
   .gallery-section {
     padding: 0 clamp(1.5rem, 4vw, 3rem) var(--section-py);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    color: var(--color-forge-smoke);
+    margin-bottom: 1.5rem;
   }
 
   .container {

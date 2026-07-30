@@ -13,6 +13,7 @@ const seeds: Record<string, string> = {
 
 <section id="servicios" class="services-section">
   <div class="container">
+    <h2 class="section-title">Techos, pérgolas, portones y puertas de seguridad en Valencia</h2>
     <a
       href={`https://wa.me/${wa}?text=${encodeURIComponent('Hola, me interesa un presupuesto para ' + featured.name)}`}
       target="_blank"
@@ -33,7 +34,7 @@ const seeds: Record<string, string> = {
         <p class="featured-desc">{featured.description}</p>
         <div class="featured-foot">
           <span class="price">{featured.pricing[0].prefix} ${featured.pricing[0].price?.toLocaleString()}</span>
-          <span class="cta-btn">Pedir presupuesto</span>
+          <span class="cta-btn">Solicitar presupuesto</span>
         </div>
       </div>
     </a>
@@ -64,7 +65,7 @@ const seeds: Record<string, string> = {
                 rel="noopener noreferrer"
                 class="cta-btn"
               >
-                Pedir presupuesto
+                Solicitar presupuesto
               </a>
             </div>
           </div>
@@ -77,6 +78,14 @@ const seeds: Record<string, string> = {
 <style>
   .services-section {
     padding: var(--section-py) clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    color: var(--color-forge-smoke);
+    margin-bottom: 1.5rem;
   }
 
   .container {

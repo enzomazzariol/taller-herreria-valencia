@@ -18,7 +18,7 @@ const waMsg = encodeURIComponent(c.whatsapp_message);
         <path d="M5 12h14M12 5l7 7-7 7"/>
       </svg>
     </a>
-    <a href={`tel:${c.phone.replace(/\s/g, '')}`} class="cta-call">Llámanos — {c.phone}</a>
+    <a href={`tel:${c.phone.replace(/\s/g, '')}`} class="cta-call">Llámanos: {c.phone}</a>
   </div>
 </section>
 
@@ -52,7 +52,7 @@ const waMsg = encodeURIComponent(c.whatsapp_message);
         <span>Hecho por</span>
         <img src="/guarapo-media-logo.svg" alt="Guarapo Media" />
       </a>
-      <span>{c.coordinates} — Valencia, Carabobo</span>
+      <span>{c.coordinates}, Valencia, Carabobo</span>
     </div>
   </div>
 </footer>

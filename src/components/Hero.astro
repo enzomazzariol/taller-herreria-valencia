@@ -21,7 +21,7 @@ const b = content.business;
   <div class="hero-content">
     <div class="kicker" data-reveal data-reveal-delay="100">
       <span class="kicker-line" aria-hidden="true"></span>
-      Taller de herrería — Valencia, Carabobo
+      Taller de herrería en Valencia, Carabobo
     </div>
 
     <h1 class="hero-title" data-reveal data-reveal-delay="200">
@@ -33,15 +33,9 @@ const b = content.business;
     <div class="hero-row" data-reveal data-reveal-delay="300">
       <p class="hero-sub">
         Fabricamos e instalamos portones, rejas, barandillas, escaleras metálicas y estructuras de acero a medida.
-        Más de {b.experience_years} años forjando confianza en Valencia, Carabobo — presupuesto claro y acabados que resisten el tiempo.
+        Más de {b.experience_years} años forjando confianza en Valencia, Carabobo. Presupuesto claro y acabados que resisten el tiempo.
       </p>
       <a href="#servicios" class="hero-cta">Ver catálogo →</a>
-    </div>
-
-    <div class="hero-trust" data-reveal data-reveal-delay="400">
-      <span class="trust-item"><span class="check">✓</span>Presupuesto en 24h</span>
-      <span class="trust-item"><span class="check">✓</span>Entrega en {b.delivery_days} días</span>
-      <span class="trust-item"><span class="check">✓</span>Materiales certificados</span>
     </div>
   </div>
 </section>
@@ -206,24 +200,6 @@ const b = content.business;
   }
 
   .hero-cta:active { transform: translateX(3px) scale(0.97); }
-
-  .hero-trust {
-    display: flex;
-    gap: 2.125rem;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .trust-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    color: var(--color-forge-muted);
-  }
-
-  .check { color: var(--color-copper); }
 
   @media (max-width: 640px) {
     .hero-row { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
