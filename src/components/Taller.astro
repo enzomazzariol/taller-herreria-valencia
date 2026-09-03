@@ -1,0 +1,40 @@
+---
+import { cifras } from "../data/site";
+---
+
+<section id="taller">
+  <div data-reveal class="taller-grid">
+    <div class="taller-media">
+      <img src="https://tallerherreriavalencia.com/assets/images/image11.jpg?v=1c370da3" alt="Trabajo de herrería del taller" loading="lazy" />
+    </div>
+    <div class="taller-card">
+      <span class="eyebrow" style="color:var(--fl-muted)">El taller</span>
+      <h2>Treinta años doblando metal en la misma ciudad</h2>
+      <p>Empezamos en un galpón de Valencia y seguimos ahí. Cada techo se corta a la medida de tu estacionamiento, no se arma con piezas prefabricadas. La lámina, la pintura y la tornillería las escogemos nosotros, porque somos los que volvemos si algo falla.</p>
+      <p>Hablas directo con quien va a hacer el trabajo. Sin vendedores de por medio.</p>
+      <div class="cifras">
+        {cifras.map(c => (
+          <div class="cifra"><div class="n">{c.n}</div><div class="t">{c.t}</div></div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  section#taller { padding:0 clamp(16px,3vw,48px) clamp(20px,2.4vw,32px); }
+  .taller-grid { max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr)); gap:clamp(18px,2vw,26px); align-items:stretch; }
+  .taller-media { min-width:0; overflow:hidden; border-radius:var(--fl-r) var(--fl-r) var(--fl-r) clamp(60px,12vw,180px); background:#D3CABA; min-height:520px; }
+  .taller-media img { width:100%; height:100%; object-fit:cover; display:block; min-height:520px; }
+  .taller-card { min-width:0; padding:clamp(36px,4vw,64px) clamp(28px,3vw,52px); border-radius:var(--fl-r); background:var(--fl-panel); border:1px solid var(--fl-line); display:flex; flex-direction:column; gap:24px; justify-content:center; }
+  .taller-card h2 { font-size:clamp(32px,3.6vw,54px); line-height:1; }
+  .taller-card p { margin:0; max-width:520px; font-size:17px; line-height:1.75; color:var(--fl-body); }
+  .cifras { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:14px; margin-top:8px; }
+  .cifra { min-width:0; padding:20px 20px 22px; border-radius:20px; background:var(--fl-surface); }
+  .cifra .n { font-family:'Bricolage Grotesque',Archivo,sans-serif; font-size:40px; font-weight:800; letter-spacing:-.04em; line-height:1; color:var(--fl-ink); }
+  .cifra .t { font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--fl-muted); margin-top:10px; }
+
+  @media (max-width: 860px) {
+    .taller-media, .taller-media img { min-height:320px; }
+  }
+</style>

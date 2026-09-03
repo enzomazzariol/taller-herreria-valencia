@@ -1,0 +1,25 @@
+---
+import { resenas } from "../data/site";
+---
+
+<section class="resenas-sec">
+  <div class="resenas">
+    {resenas.map(r => (
+      <blockquote data-reveal class="resena">
+        <span class="quote">&ldquo;</span>
+        <p>{r.q}</p>
+        <footer>{r.a}</footer>
+      </blockquote>
+    ))}
+  </div>
+</section>
+
+<style>
+  .resenas-sec { padding:0 clamp(16px,3vw,48px) clamp(72px,8vw,120px); }
+  .resenas { max-width:1240px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:clamp(18px,2vw,26px); }
+  .resena { min-width:0; margin:0; padding:clamp(30px,2.8vw,40px) clamp(26px,2.4vw,34px); border-radius:var(--fl-r); background:var(--fl-panel); border:1px solid var(--fl-line); display:flex; flex-direction:column; gap:22px; transition:transform .6s cubic-bezier(.2,.8,.2,1); }
+  .resena:hover { transform:translateY(-6px); }
+  .resena .quote { font-family:'Bricolage Grotesque',Archivo,sans-serif; font-size:34px; font-weight:700; line-height:1; color:var(--fl-accent); }
+  .resena p { margin:0; font-family:'Bricolage Grotesque',Archivo,sans-serif; font-size:23px; font-weight:600; letter-spacing:-.025em; line-height:1.35; color:var(--fl-ink); }
+  .resena footer { margin-top:auto; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--fl-muted); }
+</style>

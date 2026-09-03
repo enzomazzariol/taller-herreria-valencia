@@ -1,0 +1,30 @@
+---
+import { galeria } from "../data/site";
+---
+
+<section id="trabajos">
+  <div class="trabajos-head">
+    <div>
+      <span class="eyebrow" style="color:var(--fl-muted)">Lookbook</span>
+      <h2>Trabajos entregados</h2>
+    </div>
+    <p>Casas y locales reales en Valencia, Maracay y Caracas. Ninguna imagen es un render.</p>
+  </div>
+  <div class="galeria">
+    {galeria.map(g => (
+      <figure data-reveal><img src={g} alt="Trabajo de herrería entregado por el taller" loading="lazy" /></figure>
+    ))}
+  </div>
+</section>
+
+<style>
+  section#trabajos { padding:clamp(72px,8vw,124px) clamp(16px,3vw,48px) clamp(56px,6vw,88px); }
+  .trabajos-head { max-width:1240px; margin:0 auto clamp(32px,3.6vw,48px); display:flex; align-items:flex-end; justify-content:space-between; gap:32px; flex-wrap:wrap; }
+  .trabajos-head h2 { font-size:clamp(32px,3.8vw,56px); line-height:1; }
+  .trabajos-head p { margin:0; max-width:330px; font-size:15px; line-height:1.7; color:var(--fl-body); }
+  .galeria { max-width:1240px; margin:0 auto; column-count:4; column-gap:clamp(12px,1.4vw,18px); }
+  .galeria figure { margin:0 0 clamp(12px,1.4vw,18px); break-inside:avoid; overflow:hidden; border-radius:20px; background:#D3CABA; }
+  .galeria img { display:block; width:100%; height:auto; transition:transform 1.1s cubic-bezier(.2,.8,.2,1); }
+  .galeria figure:hover img { transform:scale(1.05); }
+  @media (max-width: 900px) { .galeria { column-count:2; } }
+</style>

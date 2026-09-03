@@ -1,0 +1,99 @@
+---
+import { navItems, waGeneral } from "../data/site";
+import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
+---
+
+<header class="header">
+  <a href="#top" class="logo">
+    <img src="https://tallerherreriavalencia.com/assets/images/image28.png?v=1c370da3" alt="Flamingo Services" />
+  </a>
+  <nav class="nav" id="mainNav">
+    <span class="nav-pill" aria-hidden="true"></span>
+    {navItems.map(n => <a href={n.href}>{n.label}</a>)}
+  </nav>
+  <a href={waGeneral} target="_blank" rel="noopener" class="wa-pill">
+    <WhatsAppIcon size={18} />
+    0424 471 5866
+  </a>
+  <button type="button" id="menuBtn" class="menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div id="mobileMenu" class="mobile-menu">
+  <nav class="mobile-menu-links">
+    {navItems.map(n => <a href={n.href}>{n.label}</a>)}
+  </nav>
+  <a href={waGeneral} target="_blank" rel="noopener" class="mobile-menu-wa">Escribir por WhatsApp</a>
+</div>
+
+<style>
+  .header { position:sticky; top:14px; z-index:60; margin:14px 0 0; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 30px; padding:14px 22px 14px 26px; border-radius:999px; background:color-mix(in srgb, var(--fl-panel) 72%, transparent); border:1px solid var(--fl-line); box-shadow:0 10px 30px rgba(20,18,15,.07); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+  .logo { display:flex; align-items:center; color:var(--fl-ink); }
+  .logo img { height:26px; width:auto; display:block; }
+  .nav { position:relative; display:flex; flex-wrap:wrap; align-items:center; gap:4px; }
+  .nav-pill { position:absolute; top:50%; height:38px; margin-top:-19px; border-radius:999px; background:var(--fl-ink); pointer-events:none; opacity:0; transition:left .45s cubic-bezier(.2,.8,.2,1), width .45s cubic-bezier(.2,.8,.2,1), opacity .3s ease; }
+  .nav a { position:relative; z-index:1; padding:10px 17px; border-radius:999px; font-size:12.5px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; white-space:nowrap; color:var(--fl-ink); transition:color .35s ease; }
+  .nav a.is-hovered { color:var(--fl-panel); }
+  .wa-pill { display:inline-flex; align-items:center; gap:10px; padding:12px 22px; border-radius:999px; background:var(--fl-accent); color:#F4EFE6; font-size:13px; font-weight:700; letter-spacing:.06em; white-space:nowrap; }
+  .wa-pill:hover { background:var(--fl-ink); color:var(--fl-panel); transform:translateY(-2px); }
+  .wa-pill :global(svg) { flex:0 0 auto; display:block; }
+
+  .menu-btn { display:none; width:42px; height:42px; flex:0 0 auto; border-radius:999px; border:1px solid var(--fl-line); background:transparent; align-items:center; justify-content:center; flex-direction:column; gap:5px; cursor:pointer; padding:0; }
+  .menu-btn span { display:block; width:18px; height:2px; background:var(--fl-ink); border-radius:2px; transition:transform .3s ease, opacity .3s ease; }
+  .menu-btn.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+  .menu-btn.open span:nth-child(2) { opacity:0; }
+  .menu-btn.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu { position:fixed; inset:0; z-index:65; background:var(--fl-surface); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:36px; opacity:0; pointer-events:none; transition:opacity .3s ease; }
+  .mobile-menu.open { opacity:1; pointer-events:auto; }
+  .mobile-menu-links { display:flex; flex-direction:column; align-items:center; gap:22px; }
+  .mobile-menu-links a { font-family:'Bricolage Grotesque',Archivo,sans-serif; font-size:30px; font-weight:700; letter-spacing:-.02em; color:var(--fl-ink); }
+  .mobile-menu-wa { display:inline-flex; align-items:center; padding:16px 32px; border-radius:999px; background:var(--fl-accent); color:#F4EFE6; font-size:14px; font-weight:700; }
+
+  @media (max-width: 860px) {
+    .nav, .wa-pill { display:none; }
+    .menu-btn { display:flex; }
+  }
+  @media (min-width: 861px) { .mobile-menu { display:none; } }
+  @media (max-width: 480px) {
+    .header { padding:12px 14px 12px 18px; }
+  }
+</style>
+
+<script>
+  const menuBtn = document.getElementById("menuBtn");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.remove("open");
+    menuBtn?.classList.remove("open");
+    menuBtn?.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
+
+  menuBtn?.addEventListener("click", () => {
+    const open = mobileMenu?.classList.toggle("open");
+    menuBtn.classList.toggle("open", open);
+    menuBtn.setAttribute("aria-expanded", String(!!open));
+    document.body.style.overflow = open ? "hidden" : "";
+  });
+  mobileMenu?.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMobileMenu));
+
+  const nav = document.getElementById("mainNav");
+  const navPill = nav?.querySelector<HTMLElement>(".nav-pill");
+  const navLinks = Array.from(nav?.querySelectorAll<HTMLAnchorElement>("a") ?? []);
+  navLinks.forEach(link => {
+    link.addEventListener("mouseenter", () => {
+      if (!navPill) return;
+      navPill.style.left = link.offsetLeft + "px";
+      navPill.style.width = link.offsetWidth + "px";
+      navPill.style.opacity = "1";
+      navLinks.forEach(l => l.classList.toggle("is-hovered", l === link));
+    });
+  });
+  nav?.addEventListener("mouseleave", () => {
+    if (navPill) navPill.style.opacity = "0";
+    navLinks.forEach(l => l.classList.remove("is-hovered"));
+  });
+</script>

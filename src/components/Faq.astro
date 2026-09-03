@@ -1,0 +1,84 @@
+---
+import { faqs, waGeneral } from "../data/site";
+---
+
+<section class="faq-sec">
+  <div data-reveal class="faq-grid">
+    <div class="faq-head">
+      <span class="eyebrow" style="color:var(--fl-muted)">Preguntas</span>
+      <h2>Lo que casi todos preguntan</h2>
+      <a href={waGeneral} target="_blank" rel="noopener" class="btn-outline" style="align-self:flex-start">Tengo otra duda</a>
+    </div>
+    <div class="faq-list">
+      {faqs.map(f => (
+        <details><summary>{f.q}</summary><p>{f.a}</p></details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-sec { padding:0 clamp(16px,3vw,48px) clamp(72px,8vw,120px); }
+  .faq-grid { max-width:1140px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr)); gap:48px 72px; align-items:start; }
+  .faq-head { min-width:0; display:flex; flex-direction:column; gap:20px; }
+  .faq-head h2 { font-size:clamp(30px,3.4vw,50px); line-height:1; }
+  .faq-list details { border-bottom:1px solid var(--fl-line); padding:20px 0; }
+  .faq-list summary { cursor:pointer; list-style:none; font-family:'Bricolage Grotesque',Archivo,sans-serif; font-size:19px; font-weight:600; letter-spacing:-.02em; color:var(--fl-ink); transition:color .3s ease; }
+  .faq-list summary:hover { color:var(--fl-accent); }
+  .faq-list p { margin:14px 0 0; font-size:16px; line-height:1.75; color:var(--fl-body); max-width:620px; opacity:0; transition:opacity .22s ease; }
+  .faq-list details[open] p { opacity:1; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLDetailsElement>(".faq-list details").forEach(details => {
+    const summary = details.querySelector("summary")!;
+    const answer = details.querySelector("p")!;
+    let anim: Animation | null = null;
+    let closing = false;
+    let opening = false;
+
+    summary.addEventListener("click", e => {
+      e.preventDefault();
+      details.style.overflow = "hidden";
+      if (closing || !details.open) {
+        openDetails();
+      } else if (opening || details.open) {
+        shrink();
+      }
+    });
+
+    function shrink() {
+      closing = true;
+      const startHeight = details.offsetHeight + "px";
+      const endHeight = summary.offsetHeight + "px";
+      anim?.cancel();
+      anim = details.animate({ height: [startHeight, endHeight] }, { duration: 280, easing: "cubic-bezier(.2,.8,.2,1)" });
+      anim.onfinish = () => finish(false);
+      anim.oncancel = () => (closing = false);
+    }
+
+    function openDetails() {
+      details.style.height = details.offsetHeight + "px";
+      details.open = true;
+      requestAnimationFrame(expand);
+    }
+
+    function expand() {
+      opening = true;
+      const startHeight = details.offsetHeight + "px";
+      const endHeight = summary.offsetHeight + answer.offsetHeight + "px";
+      anim?.cancel();
+      anim = details.animate({ height: [startHeight, endHeight] }, { duration: 280, easing: "cubic-bezier(.2,.8,.2,1)" });
+      anim.onfinish = () => finish(true);
+      anim.oncancel = () => (opening = false);
+    }
+
+    function finish(open: boolean) {
+      details.open = open;
+      anim = null;
+      closing = false;
+      opening = false;
+      details.style.height = details.style.overflow = "";
+    }
+  });
+</script>

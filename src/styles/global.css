@@ -1,0 +1,24 @@
+:root {
+  --fl-surface:#131110; --fl-panel:#1D1A17; --fl-ink:#F0EADF; --fl-body:rgba(240,234,223,.78);
+  --fl-muted:rgba(240,234,223,.52); --fl-line:rgba(240,234,223,.16); --fl-accent:#C05A24;
+  --fl-alt:#E6DFD3; --fl-on-alt:#14120F; --fl-alt-body:#443E35; --fl-alt-muted:#756E62;
+  --fl-alt-line:rgba(20,18,15,.18); --fl-alt-soft:rgba(20,18,15,.05); --fl-footer-back:#131110; --fl-r:32px;
+}
+html { scroll-behavior: smooth; }
+body { margin:0; background:var(--fl-surface); color:var(--fl-ink); font-family:Archivo,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+a { text-decoration:none; transition:color .35s ease, background-color .4s ease, border-color .4s ease, transform .4s ease; }
+details > summary::-webkit-details-marker { display:none }
+.wrap { padding:0 clamp(12px,1.6vw,22px) clamp(12px,1.6vw,22px); }
+
+h2 { margin:0; font-family:'Bricolage Grotesque',Archivo,sans-serif; font-weight:700; letter-spacing:-.035em; color:var(--fl-ink); }
+.eyebrow { font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(240,234,223,.7); }
+
+.btn-light { display:inline-flex; align-items:center; padding:18px 34px; border-radius:999px; background:#F0EADF; color:#14120F; font-size:14px; font-weight:600; white-space:nowrap; }
+.btn-light:hover { background:var(--fl-accent); color:#F4EFE6; transform:translateY(-3px); }
+.btn-ghost { display:inline-flex; align-items:center; padding:18px 32px; border-radius:999px; border:1px solid rgba(240,234,223,.42); color:#F0EADF; font-size:14px; font-weight:500; white-space:nowrap; }
+.btn-ghost:hover { border-color:#F0EADF; background:rgba(240,234,223,.14); transform:translateY(-3px); }
+.btn-outline { display:inline-flex; align-items:center; padding:16px 30px; border-radius:999px; border:1px solid var(--fl-ink); color:var(--fl-ink); font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; }
+.btn-outline:hover { background:var(--fl-ink); color:var(--fl-surface); transform:translateY(-3px); }
+
+[data-reveal] { opacity:0; transform:translateY(22px); transition:opacity .9s cubic-bezier(.2,.8,.2,1), transform .9s cubic-bezier(.2,.8,.2,1); }
+[data-reveal].is-visible { opacity:1; transform:none; }

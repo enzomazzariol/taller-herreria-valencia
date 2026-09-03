@@ -1,0 +1,39 @@
+---
+import { pilares } from "../data/site";
+---
+
+<section id="porque">
+  <div data-reveal class="porque-panel">
+    <div class="porque-head">
+      <span>El taller</span>
+      <h2>¿Por qué escoger Flamingo Services?</h2>
+    </div>
+    <div class="pilares">
+      {pilares.map(p => (
+        <div data-reveal class="pilar">
+          <span class="icon-badge">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              {p.icon.split("|").map(d => <path d={d} />)}
+            </svg>
+          </span>
+          <h3>{p.t}</h3>
+          <p>{p.d}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  section#porque { padding:clamp(20px,2.4vw,32px) clamp(16px,3vw,48px); }
+  .porque-panel { position:relative; overflow:hidden; max-width:1240px; margin:0 auto; padding:clamp(56px,6vw,96px) clamp(28px,4vw,72px) clamp(60px,6vw,100px) clamp(28px,7vw,120px); border-radius:var(--fl-r) var(--fl-r) clamp(60px,12vw,180px) var(--fl-r); background:var(--fl-alt); }
+  .porque-head { display:flex; flex-direction:column; gap:16px; margin-bottom:clamp(40px,4.5vw,64px); max-width:620px; }
+  .porque-head span { font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:var(--fl-alt-muted); }
+  .porque-head h2 { font-size:clamp(32px,3.8vw,56px); line-height:1; color:var(--fl-on-alt); }
+  .pilares { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:clamp(18px,2vw,28px); }
+  .pilar { min-width:0; padding:clamp(28px,2.6vw,36px) clamp(24px,2.2vw,32px) clamp(32px,3vw,40px); border-radius:24px; border:1px solid var(--fl-alt-line); display:flex; flex-direction:column; gap:18px; transition:border-color .6s ease, background-color .6s cubic-bezier(.2,.8,.2,1), transform .6s cubic-bezier(.2,.8,.2,1); }
+  .pilar:hover { background:var(--fl-alt-soft); transform:translateY(-6px); }
+  .pilar .icon-badge { width:54px; height:54px; border-radius:999px; border:1px solid var(--fl-alt-line); display:flex; align-items:center; justify-content:center; color:var(--fl-on-alt); }
+  .pilar h3 { margin:0; font-family:'Bricolage Grotesque',Archivo,sans-serif; font-size:24px; font-weight:700; letter-spacing:-.025em; color:var(--fl-on-alt); }
+  .pilar p { margin:0; font-size:16px; line-height:1.7; color:var(--fl-alt-body); }
+</style>

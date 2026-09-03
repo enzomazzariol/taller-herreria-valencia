@@ -1,0 +1,92 @@
+---
+import { heroSlides, imageUrl, waGeneral } from "../data/site";
+---
+
+<section id="top" class="hero">
+  {heroSlides.map((f, i) => (
+    <img class:list={["hero-bg", { active: i === 0 }]} data-slide={i} src={imageUrl(f)} alt={i === 0 ? "Techo de estacionamiento instalado en Valencia" : ""} />
+  ))}
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span data-reveal class="eyebrow">Taller propio en Valencia · desde 1994</span>
+      <h1 data-reveal data-delay="90">El hierro de&nbsp;tu casa, hecho a&nbsp;mano y&nbsp;a&nbsp;tu medida</h1>
+      <p data-reveal data-delay="180">Techos, portones, pérgolas y puertas de seguridad. Medimos en tu casa, fabricamos en nuestro galpón e instalamos nosotros mismos.</p>
+      <div data-reveal data-delay="270" class="hero-ctas">
+        <a href={waGeneral} target="_blank" rel="noopener" class="btn-light">Pedir presupuesto por WhatsApp</a>
+        <a href="#catalogo" class="btn-ghost">Ver catálogo y precios</a>
+      </div>
+    </div>
+    <div class="hero-thumbs">
+      {heroSlides.map((f, i) => (
+        <button type="button" class:list={["hero-thumb", { active: i === 0 }]} data-thumb={i} aria-label="Ver trabajo">
+          <span class="thumb-track"><span class="thumb-progress"></span></span>
+          <span class="thumb-img-wrap"><img src={imageUrl(f)} alt="" loading="lazy" /></span>
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { position:relative; margin-top:-64px; padding-top:64px; min-height:88vh; display:flex; align-items:flex-end; overflow:hidden; border-radius:var(--fl-r); background:#1B1814; }
+  .hero-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity 1.2s cubic-bezier(.4,0,.2,1); }
+  .hero-bg.active { opacity:1; }
+  .hero-scrim { position:absolute; inset:0; background:linear-gradient(180deg,rgba(20,18,15,.55) 0%,rgba(20,18,15,.16) 34%,rgba(20,18,15,.88) 100%); }
+  .hero-inner { position:relative; width:100%; padding:clamp(40px,5vw,72px) clamp(28px,4vw,64px) clamp(32px,3.6vw,48px); display:grid; grid-template-columns:minmax(0,1fr) auto; gap:44px; align-items:end; }
+  .hero-copy { min-width:0; display:flex; flex-direction:column; gap:26px; max-width:920px; }
+  .hero h1 { margin:0; max-width:19ch; font-family:'Bricolage Grotesque',Archivo,sans-serif; font-weight:800; font-size:clamp(42px,5.8vw,104px); line-height:.92; letter-spacing:-.035em; color:#F0EADF; text-wrap:balance; }
+  .hero p { margin:0; max-width:470px; font-size:17px; line-height:1.6; color:rgba(240,234,223,.82); }
+  .hero-ctas { display:flex; flex-wrap:wrap; gap:12px; padding-top:6px; }
+
+  .hero-thumbs { display:flex; gap:10px; align-items:flex-end; }
+  .hero-thumb { position:relative; padding:0; border:none; background:none; cursor:pointer; width:104px; display:block; transition:transform .5s cubic-bezier(.2,.8,.2,1); }
+  .hero-thumb:hover { transform:translateY(-5px); }
+  .thumb-track { display:block; height:3px; border-radius:999px; background:rgba(240,234,223,.28); overflow:hidden; }
+  .thumb-progress { display:block; height:3px; border-radius:999px; background:#F0EADF; width:0%; }
+  .thumb-img-wrap { display:block; height:72px; margin-top:10px; overflow:hidden; border-radius:14px; }
+  .thumb-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; transition:opacity .6s ease; opacity:.5; }
+  .hero-thumb.active .thumb-img-wrap img { opacity:1; }
+
+  @media (max-width: 860px) {
+    .hero-inner { grid-template-columns:1fr; gap:28px; }
+    .hero-thumbs { width:100%; }
+    .hero-thumb { flex:1; min-width:0; width:auto; }
+  }
+  @media (max-width: 480px) {
+    .thumb-img-wrap { height:56px; }
+  }
+</style>
+
+<script>
+  const SLIDE_MS = 6000;
+  const bgs = Array.from(document.querySelectorAll<HTMLElement>(".hero-bg"));
+  const thumbs = Array.from(document.querySelectorAll<HTMLElement>(".hero-thumb"));
+  let current = 0;
+  let start = performance.now();
+
+  function goTo(i: number) {
+    current = i;
+    start = performance.now();
+    bgs.forEach((el, idx) => el.classList.toggle("active", idx === i));
+    thumbs.forEach((el, idx) => {
+      el.classList.toggle("active", idx === i);
+      const bar = el.querySelector<HTMLElement>(".thumb-progress");
+      if (bar) bar.style.width = idx < i ? "100%" : "0%";
+    });
+  }
+
+  function tick(now: number) {
+    const elapsed = now - start;
+    const pct = Math.min(elapsed / SLIDE_MS, 1);
+    const bar = thumbs[current]?.querySelector<HTMLElement>(".thumb-progress");
+    if (bar) bar.style.width = (pct * 100) + "%";
+    if (pct >= 1) goTo((current + 1) % bgs.length);
+    requestAnimationFrame(tick);
+  }
+
+  if (bgs.length) {
+    thumbs.forEach((el, i) => el.addEventListener("click", () => goTo(i)));
+    requestAnimationFrame(tick);
+  }
+</script>

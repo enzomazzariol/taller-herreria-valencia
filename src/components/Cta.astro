@@ -1,0 +1,33 @@
+---
+import { waGeneral } from "../data/site";
+---
+
+<section class="cta-sec">
+  <div data-reveal class="cta-panel">
+    <img src="https://tallerherreriavalencia.com/assets/images/image14.jpg?v=1c370da3" alt="Techo instalado por el taller" loading="lazy" />
+    <div class="cta-scrim"></div>
+    <div class="cta-content">
+      <h2>Mándanos una foto del espacio y te damos el precio</h2>
+      <p>Respondemos por WhatsApp el mismo día. Con una foto y la medida aproximada te damos un rango de una vez.</p>
+      <div class="cta-ctas">
+        <a href={waGeneral} target="_blank" rel="noopener" class="btn-light">Escribir por WhatsApp</a>
+        <a href="tel:+584244715866" class="btn-ghost">Llamar 0424 471 5866</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-sec { padding:0 clamp(16px,3vw,48px) clamp(20px,2.4vw,32px); }
+  .cta-panel { position:relative; overflow:hidden; max-width:1240px; margin:0 auto; border-radius:var(--fl-r) clamp(60px,12vw,180px) var(--fl-r) var(--fl-r); background:#1B1814; min-height:520px; display:flex; align-items:center; }
+  .cta-panel img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .cta-scrim { position:absolute; inset:0; background:rgba(20,18,15,.7); }
+  .cta-content { position:relative; width:100%; padding:clamp(64px,7vw,110px) clamp(28px,4vw,64px); display:flex; flex-direction:column; align-items:center; gap:28px; text-align:center; }
+  .cta-content h2 { max-width:22ch; font-weight:800; font-size:clamp(36px,5.2vw,82px); line-height:.96; letter-spacing:-.04em; color:#F0EADF; text-wrap:balance; }
+  .cta-content p { margin:0; max-width:520px; font-size:17px; line-height:1.7; color:rgba(240,234,223,.78); }
+  .cta-ctas { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+
+  @media (max-width: 860px) {
+    .cta-panel { min-height:400px; }
+  }
+</style>
