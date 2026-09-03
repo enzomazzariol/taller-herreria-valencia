@@ -15,14 +15,19 @@ export const navItems = [
   { label: "El taller", href: "#taller" },
 ];
 
-export const heroSlides = ["image17", "image13", "image16", "image23"];
+export const heroSlides = [
+  { img: "image17", title: "El hierro de&nbsp;tu casa, hecho a&nbsp;mano y&nbsp;a&nbsp;tu medida" },
+  { img: "image13", title: "Portones que abren&nbsp;fácil y cierran&nbsp;seguro" },
+  { img: "image16", title: "Pérgolas que le dan&nbsp;sombra a tu terraza" },
+  { img: "image23", title: "Treinta años fabricando en&nbsp;Valencia" },
+];
 
 export const productos = [
   {
     nombre: "Techo estacionamiento", tipo: "Estacionamiento", img: imageUrl("image14"),
     tarifas: [
-      { q: "1 vehículo", v: "Desde $1.250" },
-      { q: "2 vehículos", v: "Desde $1.970" },
+      { q: "1 vehículo", v: "Desde $1.590" },
+      { q: "2 vehículos", v: "Desde $2.300" },
       { q: "De 3 vehículos en adelante", v: "Llamar para presupuesto" },
     ],
     incluye: ["Cobertura en lámina de aluminio", "Disponible en diferentes colores", "Resistente al sol y a la lluvia", "Instalación", "Pintura", "Instalación en menos de 7 días"],
@@ -30,19 +35,19 @@ export const productos = [
   },
   {
     nombre: "Puerta de seguridad", tipo: "Seguridad", img: imageUrl("image15"),
-    tarifas: [{ q: "1 puerta", v: "Desde $699" }],
+    tarifas: [{ q: "1 puerta", v: "Desde $790" }],
     incluye: ["Diseños modernos", "Cerradura italiana", "Disponible en diferentes colores", "Instalación", "Pintura", "Instalación en menos de 7 días"],
     wa: waLink("Hola! Quisiera un presupuesto para una puerta de seguridad."),
   },
   {
     nombre: "Pérgola para terraza", tipo: "Terraza", img: imageUrl("image16"),
-    tarifas: [{ q: "1 pérgola", v: "Desde $1.199" }],
+    tarifas: [{ q: "1 pérgola", v: "Desde $1.550" }],
     incluye: ["Diseños modernos", "Perfilería tratada contra el óxido", "Disponible en diferentes colores", "Instalación", "Pintura", "Instalación en menos de 7 días"],
     wa: waLink("Hola! Quisiera un presupuesto para una pérgola."),
   },
   {
     nombre: "Portón estacionamiento", tipo: "Acceso", img: imageUrl("image13"),
-    tarifas: [{ q: "1 portón", v: "Desde $1.350" }],
+    tarifas: [{ q: "1 portón", v: "Desde $1.690" }],
     incluye: ["Diseños modernos", "Cerradura reforzada", "Disponible en diferentes colores", "Instalación", "Pintura", "Instalación en menos de 7 días"],
     wa: waLink("Hola! Quisiera un presupuesto para un portón."),
   },

@@ -3,14 +3,14 @@ import { heroSlides, imageUrl, waGeneral } from "../data/site";
 ---
 
 <section id="top" class="hero">
-  {heroSlides.map((f, i) => (
-    <img class:list={["hero-bg", { active: i === 0 }]} data-slide={i} src={imageUrl(f)} alt={i === 0 ? "Techo de estacionamiento instalado en Valencia" : ""} />
+  {heroSlides.map((s, i) => (
+    <img class:list={["hero-bg", { active: i === 0 }]} data-slide={i} src={imageUrl(s.img)} alt={i === 0 ? "Techo de estacionamiento instalado en Valencia" : ""} />
   ))}
   <div class="hero-scrim"></div>
   <div class="hero-inner">
     <div class="hero-copy">
       <span data-reveal class="eyebrow">Taller propio en Valencia · desde 1994</span>
-      <h1 data-reveal data-delay="90">El hierro de&nbsp;tu casa, hecho a&nbsp;mano y&nbsp;a&nbsp;tu medida</h1>
+      <h1 id="heroTitle" data-reveal data-delay="90" set:html={heroSlides[0].title} />
       <p data-reveal data-delay="180">Techos, portones, pérgolas y puertas de seguridad. Medimos en tu casa, fabricamos en nuestro galpón e instalamos nosotros mismos.</p>
       <div data-reveal data-delay="270" class="hero-ctas">
         <a href={waGeneral} target="_blank" rel="noopener" class="btn-light">Pedir presupuesto por WhatsApp</a>
@@ -18,13 +18,16 @@ import { heroSlides, imageUrl, waGeneral } from "../data/site";
       </div>
     </div>
     <div class="hero-thumbs">
-      {heroSlides.map((f, i) => (
+      {heroSlides.map((s, i) => (
         <button type="button" class:list={["hero-thumb", { active: i === 0 }]} data-thumb={i} aria-label="Ver trabajo">
           <span class="thumb-track"><span class="thumb-progress"></span></span>
-          <span class="thumb-img-wrap"><img src={imageUrl(f)} alt="" loading="lazy" /></span>
+          <span class="thumb-img-wrap"><img src={imageUrl(s.img)} alt="" loading="lazy" /></span>
         </button>
       ))}
     </div>
+  </div>
+  <div id="heroTitles" hidden>
+    {heroSlides.map(s => <span set:html={s.title} />)}
   </div>
 </section>
 
@@ -62,6 +65,8 @@ import { heroSlides, imageUrl, waGeneral } from "../data/site";
   const SLIDE_MS = 6000;
   const bgs = Array.from(document.querySelectorAll<HTMLElement>(".hero-bg"));
   const thumbs = Array.from(document.querySelectorAll<HTMLElement>(".hero-thumb"));
+  const heroTitle = document.getElementById("heroTitle");
+  const heroTitles = Array.from(document.querySelectorAll<HTMLElement>("#heroTitles > span")).map(el => el.innerHTML);
   let current = 0;
   let start = performance.now();
 
@@ -74,6 +79,14 @@ import { heroSlides, imageUrl, waGeneral } from "../data/site";
       const bar = el.querySelector<HTMLElement>(".thumb-progress");
       if (bar) bar.style.width = idx < i ? "100%" : "0%";
     });
+    if (heroTitle && heroTitles[i] && heroTitle.innerHTML !== heroTitles[i]) {
+      heroTitle.style.transition = "opacity .35s ease";
+      heroTitle.style.opacity = "0";
+      setTimeout(() => {
+        heroTitle.innerHTML = heroTitles[i];
+        heroTitle.style.opacity = "1";
+      }, 350);
+    }
   }
 
   function tick(now: number) {
