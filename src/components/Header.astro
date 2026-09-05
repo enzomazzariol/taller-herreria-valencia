@@ -5,7 +5,7 @@ import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
 
 <header class="header">
   <a href="#top" class="logo">
-    <img src="https://tallerherreriavalencia.com/assets/images/image28.png?v=1c370da3" alt="Flamingo Services" />
+    <img src="/logos/flamingo-logo-blanco@4x.png" alt="Flamingo Services" />
   </a>
   <nav class="nav" id="mainNav">
     <span class="nav-pill" aria-hidden="true"></span>
@@ -20,7 +20,7 @@ import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
   </button>
 </header>
 
-<div id="mobileMenu" class="mobile-menu">
+<div id="mobileMenu" class="mobile-menu" inert>
   <nav class="mobile-menu-links">
     {navItems.map(n => <a href={n.href}>{n.label}</a>)}
   </nav>
@@ -30,7 +30,7 @@ import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
 <style>
   .header { position:sticky; top:14px; z-index:66; margin:14px 0 0; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px 30px; padding:14px 22px 14px 26px; border-radius:999px; background:color-mix(in srgb, var(--fl-panel) 72%, transparent); border:1px solid var(--fl-line); box-shadow:0 10px 30px rgba(20,18,15,.07); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
   .logo { display:flex; align-items:center; color:var(--fl-ink); }
-  .logo img { height:26px; width:auto; display:block; }
+  .logo img { height:42px; width:auto; display:block; }
   .nav { position:relative; display:flex; flex-wrap:wrap; align-items:center; gap:4px; }
   .nav-pill { position:absolute; top:50%; height:38px; margin-top:-19px; border-radius:999px; background:var(--fl-ink); pointer-events:none; opacity:0; transition:left .45s cubic-bezier(.2,.8,.2,1), width .45s cubic-bezier(.2,.8,.2,1), opacity .3s ease; }
   .nav a { position:relative; z-index:1; padding:10px 17px; border-radius:999px; font-size:12.5px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; white-space:nowrap; color:var(--fl-ink); transition:color .35s ease; }
@@ -67,6 +67,7 @@ import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
 
   function closeMobileMenu() {
     mobileMenu?.classList.remove("open");
+    mobileMenu?.setAttribute("inert", "");
     menuBtn?.classList.remove("open");
     menuBtn?.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
@@ -74,6 +75,8 @@ import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
 
   menuBtn?.addEventListener("click", () => {
     const open = mobileMenu?.classList.toggle("open");
+    if (open) mobileMenu?.removeAttribute("inert");
+    else mobileMenu?.setAttribute("inert", "");
     menuBtn.classList.toggle("open", open);
     menuBtn.setAttribute("aria-expanded", String(!!open));
     document.body.style.overflow = open ? "hidden" : "";

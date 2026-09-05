@@ -12,7 +12,7 @@ import { galeria } from "../data/site";
   </div>
   <div class="galeria">
     {galeria.map(g => (
-      <figure data-reveal><img src={g} alt="Trabajo de herrería entregado por el taller" loading="lazy" /></figure>
+      <figure data-reveal><img src={g.img} alt={g.alt} loading="lazy" /></figure>
     ))}
   </div>
 </section>

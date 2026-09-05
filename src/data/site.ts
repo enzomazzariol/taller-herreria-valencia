@@ -70,10 +70,15 @@ export const pilares = [
   { t: "Calidad garantizada", d: "Lámina de aluminio, perfilería tratada contra el óxido y cerradura italiana en puertas. Respondemos por lo que montamos.", icon: "M12 3l3 4.5h4.5L17 12l2.5 4.5H15L12 21l-3-4.5H4.5L7 12 4.5 7.5H9z" },
 ];
 
+// ponytail: alt genérico por tipo (rotado) hasta que se suban las fotos reales con su propia descripción
+const galeriaTipos = ["Techo de estacionamiento", "Portón de acceso", "Pérgola para terraza", "Puerta de seguridad"];
 export const galeria = [
   "image17", "image19", "image18", "image20", "image23", "image24", "image25", "image21", "image22", "image26",
   "image11", "image06", "image03", "image07", "image01", "image09", "image12", "image08", "image10", "image04", "image05",
-].map(imageUrl);
+].map((file, i) => ({
+  img: imageUrl(file),
+  alt: `${galeriaTipos[i % galeriaTipos.length]} entregado por el taller en Valencia`,
+}));
 
 export const resenas = [
   { q: "Perfecto para cuidar mi carro.", a: "Cliente · Techo de estacionamiento, Valencia" },

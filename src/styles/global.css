@@ -10,6 +10,21 @@ a { text-decoration:none; transition:color .35s ease, background-color .4s ease,
 details > summary::-webkit-details-marker { display:none }
 .wrap { padding:0 clamp(12px,1.6vw,22px) clamp(12px,1.6vw,22px); }
 
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--fl-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link { position:absolute; left:16px; top:-60px; z-index:100; padding:12px 20px; border-radius:999px; background:var(--fl-ink); color:var(--fl-surface); font-size:13px; font-weight:600; transition:top .25s ease; }
+.skip-link:focus-visible { top:16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+  [data-reveal] { opacity:1; transform:none; }
+}
+
 h2 { margin:0; font-family:'Bricolage Grotesque',Archivo,sans-serif; font-weight:700; letter-spacing:-.035em; color:var(--fl-ink); }
 .eyebrow { font-size:11px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:rgba(240,234,223,.7); }
 
