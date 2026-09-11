@@ -29,7 +29,7 @@ export const productos = [
     nombre: "Techo estacionamiento", tipo: "Estacionamiento", img: imageUrl("techo-estacionamiento-casa-rosa"),
     tarifas: [
       { q: "1 vehículo", v: "Desde $1.590" },
-      { q: "2 vehículos", v: "Desde $2.300" },
+      { q: "2 vehículos", v: "Desde $2.900" },
       { q: "De 3 vehículos en adelante", v: "Llamar para presupuesto" },
     ],
     incluye: ["Cobertura en lámina de aluminio", "Disponible en diferentes colores", "Resistente al sol y a la lluvia", "Instalación", "Pintura", "Instalación en menos de 7 días"],
@@ -43,7 +43,7 @@ export const productos = [
   },
   {
     nombre: "Pérgola para terraza", tipo: "Terraza", img: imageUrl("pergola-negra-patio-piscina"),
-    tarifas: [{ q: "1 pérgola", v: "Desde $1.550" }],
+    tarifas: [{ q: "1 pérgola", v: "Desde $2.290" }],
     incluye: ["Diseños modernos", "Perfilería tratada contra el óxido", "Disponible en diferentes colores", "Instalación", "Pintura", "Instalación en menos de 7 días"],
     wa: waLink("Hola! Quisiera un presupuesto para una pérgola."),
   },
@@ -73,29 +73,32 @@ export const pilares = [
 ];
 
 // Fotos subidas por el cliente, editadas y optimizadas a WebP.
+// w/h son las dimensiones reales del archivo: se usan como atributos width/height
+// para que el navegador reserve el espacio antes de cargar la imagen (evita que la
+// galería en columnas "salte"/reordene mientras las fotos van cargando).
 export const galeria = [
-  { file: "techo-estacionamiento-casa-rosa", alt: "Techo de estacionamiento en voladizo instalado frente a una casa en Valencia" },
-  { file: "porton-negro-horizontal", alt: "Portón negro con líneas horizontales" },
-  { file: "pergola-negra-patio-piscina", alt: "Pérgola negra instalada sobre patio con piscina" },
-  { file: "instalacion-estructura-metalica-01", alt: "Instalación de estructura metálica para pérgola" },
-  { file: "estructura-metalica-taller-03", alt: "Estructuras metálicas en fabricación en el taller" },
-  { file: "techo-estacionamiento-carport-edificio", alt: "Techo de estacionamiento para varios vehículos en conjunto residencial" },
-  { file: "pergola-amarilla-diseno", alt: "Pérgola con acabado en amarillo sobre terraza de madera" },
-  { file: "instalacion-techo-terraza", alt: "Instalación de techo de estacionamiento en terraza" },
-  { file: "puerta-seguridad-negra-lineas", alt: "Puerta de seguridad negra con líneas horizontales" },
-  { file: "puerta-seguridad-gris-paneles", alt: "Puerta de seguridad gris con paneles" },
-  { file: "techo-estacionamiento-terraza-ladrillo", alt: "Techo de estacionamiento en terraza de paredes de ladrillo" },
-  { file: "puerta-seguridad-geometrica-marron", alt: "Puerta de seguridad marrón con diseño geométrico" },
-  { file: "contenedor-metalico-naranja", alt: "Contenedor metálico a medida en color naranja" },
-  { file: "estanteria-metalica-naranja", alt: "Estantería metálica a medida en color naranja" },
-  { file: "contenedor-corrugado-naranja", alt: "Contenedor metálico corrugado en color naranja" },
-  { file: "parrillera-diseno-negra", alt: "Parrillera de diseño en hierro negro" },
-  { file: "pergola-madera-marron", alt: "Pérgola con acabado símil madera en tono marrón" },
-  { file: "pergola-negra-patio-vidrio", alt: "Pérgola negra sobre patio con paredes de vidrio" },
-  { file: "pergola-negra-pasillo", alt: "Pérgola negra instalada en pasillo lateral de la casa" },
-  { file: "puerta-seguridad-azul-barras", alt: "Puerta de seguridad azul con barras verticales" },
-  { file: "instalacion-techo-patio-enladrillado", alt: "Instalación de techo de estacionamiento en patio enladrillado" },
-].map(({ file, alt }) => ({ img: imageUrl(file), alt }));
+  { file: "techo-estacionamiento-casa-rosa", alt: "Techo de estacionamiento en voladizo instalado frente a una casa en Valencia", w: 1672, h: 941 },
+  { file: "porton-negro-horizontal", alt: "Portón negro con líneas horizontales", w: 941, h: 1672 },
+  { file: "pergola-negra-patio-piscina", alt: "Pérgola negra instalada sobre patio con piscina", w: 1087, h: 1446 },
+  { file: "instalacion-estructura-metalica-01", alt: "Instalación de estructura metálica para pérgola", w: 1088, h: 1445 },
+  { file: "estructura-metalica-taller-03", alt: "Estructuras metálicas en fabricación en el taller", w: 1889, h: 832 },
+  { file: "techo-estacionamiento-carport-edificio", alt: "Techo de estacionamiento para varios vehículos en conjunto residencial", w: 1153, h: 1364 },
+  { file: "pergola-amarilla-diseno", alt: "Pérgola con acabado en amarillo sobre terraza de madera", w: 1086, h: 1448 },
+  { file: "instalacion-techo-terraza", alt: "Instalación de techo de estacionamiento en terraza", w: 1086, h: 1448 },
+  { file: "puerta-seguridad-negra-lineas", alt: "Puerta de seguridad negra con líneas horizontales", w: 855, h: 1840 },
+  { file: "puerta-seguridad-gris-paneles", alt: "Puerta de seguridad gris con paneles", w: 840, h: 1871 },
+  { file: "techo-estacionamiento-terraza-ladrillo", alt: "Techo de estacionamiento en terraza de paredes de ladrillo", w: 1448, h: 1086 },
+  { file: "puerta-seguridad-geometrica-marron", alt: "Puerta de seguridad marrón con diseño geométrico", w: 1122, h: 1402 },
+  { file: "contenedor-metalico-naranja", alt: "Contenedor metálico a medida en color naranja", w: 1086, h: 1448 },
+  { file: "estanteria-metalica-naranja", alt: "Estantería metálica a medida en color naranja", w: 1086, h: 1448 },
+  { file: "contenedor-corrugado-naranja", alt: "Contenedor metálico corrugado en color naranja", w: 1086, h: 1448 },
+  { file: "parrillera-diseno-negra", alt: "Parrillera de diseño en hierro negro", w: 1144, h: 1375 },
+  { file: "pergola-madera-marron", alt: "Pérgola con acabado símil madera en tono marrón", w: 1086, h: 1448 },
+  { file: "pergola-negra-patio-vidrio", alt: "Pérgola negra sobre patio con paredes de vidrio", w: 1889, h: 832 },
+  { file: "pergola-negra-pasillo", alt: "Pérgola negra instalada en pasillo lateral de la casa", w: 832, h: 1889 },
+  { file: "puerta-seguridad-azul-barras", alt: "Puerta de seguridad azul con barras verticales", w: 855, h: 1839 },
+  { file: "instalacion-techo-patio-enladrillado", alt: "Instalación de techo de estacionamiento en patio enladrillado", w: 1086, h: 1448 },
+].map(({ file, alt, w, h }) => ({ img: imageUrl(file), alt, w, h }));
 
 export const resenas = [
   { q: "Perfecto para cuidar mi carro.", a: "Techo de estacionamiento, Valencia" },
