@@ -86,6 +86,15 @@ const localBusinessSchema = {
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZM5S9YCL5"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    gtag("js", new Date());
+    gtag("config", "G-4ZM5S9YCL5");
+  </script>
 </head>
 <body>
   <a href="#top" class="skip-link">Saltar al contenido</a>
@@ -94,6 +103,7 @@ const localBusinessSchema = {
   </div>
   <script>
     import "../scripts/reveal-on-scroll";
+    import "../scripts/track-clicks";
   </script>
 </body>
 </html>
