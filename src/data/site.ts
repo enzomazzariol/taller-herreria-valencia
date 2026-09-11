@@ -7,6 +7,9 @@ export const imageUrl = (file: string) => `/images/${file}.webp`;
 
 export const waGeneral = waLink("Hola! Quisiera pedir un presupuesto.");
 
+export const direccion = "Calle 94 Cantaura, Valencia 2001, Carabobo";
+export const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(direccion);
+
 export const navItems = [
   { label: "Catálogo", href: "#catalogo" },
   { label: "Trabajos", href: "#trabajos" },

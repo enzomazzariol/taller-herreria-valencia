@@ -1,5 +1,5 @@
 ---
-import { waGeneral } from "../data/site";
+import { waGeneral, direccion, mapsUrl } from "../data/site";
 import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
 ---
 
@@ -23,7 +23,7 @@ import WhatsAppIcon from "./icons/WhatsAppIcon.astro";
       <div class="col">
         <span class="col-title">Taller</span>
         <a href="#taller">Quiénes somos</a>
-        <span class="item">Valencia y todo Carabobo</span>
+        <a href={mapsUrl} target="_blank" rel="noopener">{direccion}</a>
         <span class="item">Maracay · Caracas</span>
         <span class="item">Lunes a sábado · 8:00 a 5:00</span>
         <span class="item">Presupuesto sin costo</span>

@@ -15,6 +15,47 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(image, Astro.site);
+
+// Coincide con la ficha de Google Business Profile (NAP consistency).
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  name: "Taller de Herrería Valencia",
+  alternateName: "Flamingo Services",
+  image: ogImageURL.toString(),
+  telephone: "+584244715866",
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Calle 94 Cantaura",
+    addressLocality: "Valencia",
+    addressRegion: "Carabobo",
+    postalCode: "2001",
+    addressCountry: "VE",
+  },
+  areaServed: [
+    { "@type": "City", name: "Valencia" },
+    { "@type": "AdministrativeArea", name: "Carabobo" },
+    { "@type": "City", name: "Maracay" },
+    { "@type": "City", name: "Caracas" },
+  ],
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "08:00",
+    closes: "17:00",
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.8",
+    reviewCount: "5",
+  },
+  sameAs: [
+    "https://www.instagram.com/flamingoservices_/",
+    "https://www.facebook.com/profile.php?id=61554200556790",
+  ],
+  url: canonicalURL.toString(),
+};
 ---
 
 <!DOCTYPE html>
@@ -43,6 +84,8 @@ const ogImageURL = new URL(image, Astro.site);
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
 </head>
 <body>
   <a href="#top" class="skip-link">Saltar al contenido</a>
