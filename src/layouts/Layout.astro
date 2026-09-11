@@ -24,6 +24,7 @@ const ogImageURL = new URL(image, Astro.site);
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
   <link rel="icon" href="/favicon.ico" sizes="any" />
 
   <meta property="og:type" content="website" />

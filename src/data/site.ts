@@ -3,8 +3,7 @@ export const WA_NUMBER = "584244715866";
 export const waLink = (text: string) =>
   `https://api.whatsapp.com/send/?phone=${WA_NUMBER}&text=${encodeURIComponent(text)}`;
 
-export const imageUrl = (file: string) =>
-  `https://tallerherreriavalencia.com/assets/images/${file}.jpg?v=1c370da3`;
+export const imageUrl = (file: string) => `/images/${file}.webp`;
 
 export const waGeneral = waLink("Hola! Quisiera pedir un presupuesto.");
 
@@ -16,15 +15,15 @@ export const navItems = [
 ];
 
 export const heroSlides = [
-  { img: "image17", title: "El hierro de&nbsp;tu casa, hecho a&nbsp;mano y&nbsp;a&nbsp;tu medida" },
-  { img: "image13", title: "Portones que abren&nbsp;fácil y cierran&nbsp;seguro" },
-  { img: "image16", title: "Pérgolas que le dan&nbsp;sombra a tu terraza" },
-  { img: "image23", title: "Treinta años fabricando en&nbsp;Valencia" },
+  { img: "techo-estacionamiento-casa-rosa", title: "El hierro de&nbsp;tu casa, hecho a&nbsp;mano y&nbsp;a&nbsp;tu medida" },
+  { img: "porton-negro-horizontal", title: "Portones que abren&nbsp;fácil y cierran&nbsp;seguro" },
+  { img: "pergola-negra-patio-piscina", title: "Pérgolas que le dan&nbsp;sombra a tu terraza" },
+  { img: "instalacion-estructura-metalica-01", title: "Treinta años fabricando en&nbsp;Valencia" },
 ];
 
 export const productos = [
   {
-    nombre: "Techo estacionamiento", tipo: "Estacionamiento", img: imageUrl("image14"),
+    nombre: "Techo estacionamiento", tipo: "Estacionamiento", img: imageUrl("techo-estacionamiento-casa-rosa"),
     tarifas: [
       { q: "1 vehículo", v: "Desde $1.590" },
       { q: "2 vehículos", v: "Desde $2.300" },
@@ -34,19 +33,19 @@ export const productos = [
     wa: waLink("Hola! Quisiera un presupuesto para un techo de estacionamiento."),
   },
   {
-    nombre: "Puerta de seguridad", tipo: "Seguridad", img: imageUrl("image15"),
+    nombre: "Puerta de seguridad", tipo: "Seguridad", img: imageUrl("puerta-seguridad-geometrica-marron"),
     tarifas: [{ q: "1 puerta", v: "Desde $790" }],
     incluye: ["Diseños modernos", "Cerradura italiana", "Disponible en diferentes colores", "Instalación", "Pintura", "Instalación en menos de 7 días"],
     wa: waLink("Hola! Quisiera un presupuesto para una puerta de seguridad."),
   },
   {
-    nombre: "Pérgola para terraza", tipo: "Terraza", img: imageUrl("image16"),
+    nombre: "Pérgola para terraza", tipo: "Terraza", img: imageUrl("pergola-negra-patio-piscina"),
     tarifas: [{ q: "1 pérgola", v: "Desde $1.550" }],
     incluye: ["Diseños modernos", "Perfilería tratada contra el óxido", "Disponible en diferentes colores", "Instalación", "Pintura", "Instalación en menos de 7 días"],
     wa: waLink("Hola! Quisiera un presupuesto para una pérgola."),
   },
   {
-    nombre: "Portón estacionamiento", tipo: "Acceso", img: imageUrl("image13"),
+    nombre: "Portón estacionamiento", tipo: "Acceso", img: imageUrl("porton-negro-horizontal"),
     tarifas: [{ q: "1 portón", v: "Desde $1.690" }],
     incluye: ["Diseños modernos", "Cerradura reforzada", "Disponible en diferentes colores", "Instalación", "Pintura", "Instalación en menos de 7 días"],
     wa: waLink("Hola! Quisiera un presupuesto para un portón."),
@@ -54,8 +53,8 @@ export const productos = [
 ];
 
 export const segmentos = [
-  { t: "Para tu casa", img: imageUrl("image20"), d: "Techos para el carro, portones, pérgolas y puertas. Medimos, acordamos color y montamos sin dejar la casa hecha un desastre.", wa: waLink("Hola! Es para mi casa, quisiera un presupuesto.") },
-  { t: "Para tu negocio", img: imageUrl("image24"), d: "Locales, condominios y obra nueva. Trabajamos por proyecto, con medidas repetidas y plazos coordinados con tu obra.", wa: waLink("Hola! Es un proyecto comercial, quisiera un presupuesto.") },
+  { t: "Para tu casa", img: imageUrl("pergola-madera-marron"), d: "Techos para el carro, portones, pérgolas y puertas. Medimos, acordamos color y montamos sin dejar la casa hecha un desastre.", wa: waLink("Hola! Es para mi casa, quisiera un presupuesto.") },
+  { t: "Para tu negocio", img: imageUrl("techo-estacionamiento-carport-edificio"), d: "Locales, condominios y obra nueva. Trabajamos por proyecto, con medidas repetidas y plazos coordinados con tu obra.", wa: waLink("Hola! Es un proyecto comercial, quisiera un presupuesto.") },
 ];
 
 export const cifras = [
@@ -70,20 +69,35 @@ export const pilares = [
   { t: "Calidad garantizada", d: "Lámina de aluminio, perfilería tratada contra el óxido y cerradura italiana en puertas. Respondemos por lo que montamos.", icon: "M12 3l3 4.5h4.5L17 12l2.5 4.5H15L12 21l-3-4.5H4.5L7 12 4.5 7.5H9z" },
 ];
 
-// ponytail: alt genérico por tipo (rotado) hasta que se suban las fotos reales con su propia descripción
-const galeriaTipos = ["Techo de estacionamiento", "Portón de acceso", "Pérgola para terraza", "Puerta de seguridad"];
+// Fotos subidas por el cliente, editadas y optimizadas a WebP.
 export const galeria = [
-  "image17", "image19", "image18", "image20", "image23", "image24", "image25", "image21", "image22", "image26",
-  "image11", "image06", "image03", "image07", "image01", "image09", "image12", "image08", "image10", "image04", "image05",
-].map((file, i) => ({
-  img: imageUrl(file),
-  alt: `${galeriaTipos[i % galeriaTipos.length]} entregado por el taller en Valencia`,
-}));
+  { file: "techo-estacionamiento-casa-rosa", alt: "Techo de estacionamiento en voladizo instalado frente a una casa en Valencia" },
+  { file: "porton-negro-horizontal", alt: "Portón negro con líneas horizontales" },
+  { file: "pergola-negra-patio-piscina", alt: "Pérgola negra instalada sobre patio con piscina" },
+  { file: "instalacion-estructura-metalica-01", alt: "Instalación de estructura metálica para pérgola" },
+  { file: "estructura-metalica-taller-03", alt: "Estructuras metálicas en fabricación en el taller" },
+  { file: "techo-estacionamiento-carport-edificio", alt: "Techo de estacionamiento para varios vehículos en conjunto residencial" },
+  { file: "pergola-amarilla-diseno", alt: "Pérgola con acabado en amarillo sobre terraza de madera" },
+  { file: "instalacion-techo-terraza", alt: "Instalación de techo de estacionamiento en terraza" },
+  { file: "puerta-seguridad-negra-lineas", alt: "Puerta de seguridad negra con líneas horizontales" },
+  { file: "puerta-seguridad-gris-paneles", alt: "Puerta de seguridad gris con paneles" },
+  { file: "techo-estacionamiento-terraza-ladrillo", alt: "Techo de estacionamiento en terraza de paredes de ladrillo" },
+  { file: "puerta-seguridad-geometrica-marron", alt: "Puerta de seguridad marrón con diseño geométrico" },
+  { file: "contenedor-metalico-naranja", alt: "Contenedor metálico a medida en color naranja" },
+  { file: "estanteria-metalica-naranja", alt: "Estantería metálica a medida en color naranja" },
+  { file: "contenedor-corrugado-naranja", alt: "Contenedor metálico corrugado en color naranja" },
+  { file: "parrillera-diseno-negra", alt: "Parrillera de diseño en hierro negro" },
+  { file: "pergola-madera-marron", alt: "Pérgola con acabado símil madera en tono marrón" },
+  { file: "pergola-negra-patio-vidrio", alt: "Pérgola negra sobre patio con paredes de vidrio" },
+  { file: "pergola-negra-pasillo", alt: "Pérgola negra instalada en pasillo lateral de la casa" },
+  { file: "puerta-seguridad-azul-barras", alt: "Puerta de seguridad azul con barras verticales" },
+  { file: "instalacion-techo-patio-enladrillado", alt: "Instalación de techo de estacionamiento en patio enladrillado" },
+].map(({ file, alt }) => ({ img: imageUrl(file), alt }));
 
 export const resenas = [
-  { q: "Perfecto para cuidar mi carro.", a: "Cliente · Techo de estacionamiento, Valencia" },
-  { q: "Responsable, eficiente y amable.", a: "Cliente · Portón, Naguanagua" },
-  { q: "Excelente acabado.", a: "Cliente · Puerta de seguridad, Maracay" },
+  { q: "Perfecto para cuidar mi carro.", a: "Techo de estacionamiento, Valencia" },
+  { q: "Responsable, eficiente y amable.", a: "Portón, Naguanagua" },
+  { q: "Excelente acabado.", a: "Puerta de seguridad, Maracay" },
 ];
 
 export const faqs = [
