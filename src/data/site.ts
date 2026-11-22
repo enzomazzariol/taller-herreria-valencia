@@ -32,10 +32,9 @@ export const productos = [
     wa: waLink("Hola! Quisiera reservar una parrillera de pared para enero."),
   },
   {
-    // ponytail: precio pendiente, cambiar v por "Desde $X" cuando lo pase el cliente
     nombre: "Parrillera en V", tipo: "Parrilleras", img: imageUrl("parrillera-en-v"),
-    tarifas: [{ q: "1 parrillera", v: "Pedir presupuesto" }],
-    incluye: ["Diseño en V de hierro negro", "Mesón de apoyo en madera", "Parrilla con asas", "Pedidos para entrega a partir de enero"],
+    tarifas: [{ q: "1 parrillera", v: "Desde $390" }],
+    incluye: ["Estructura en tubo de 2\"×2\"", "Cajón en lámina calibre 2 mm", "Parrilla en cabilla cuadrada de 1/2\"", "Mesa en madera de pino", "Estructura pintada", "Pedidos para entrega a partir de enero"],
     wa: waLink("Hola! Quisiera reservar una parrillera en V para enero."),
   },
   {
@@ -94,7 +93,7 @@ export const pilares = [
 // galería en columnas "salte"/reordene mientras las fotos van cargando).
 export const galeria = [
   { file: "parrillera-pared", alt: "Parrillera de pared en hierro negro con campana y chimenea", w: 1086, h: 1448 },
-  { file: "parrillera-en-v", alt: "Parrillera en V de hierro negro con mesón de madera en terraza", w: 1065, h: 1280 },
+  { file: "parrillera-en-v", alt: "Parrillera en V de tubo metálico con mesa de madera de pino en terraza", w: 1065, h: 1280 },
   { file: "techo-estacionamiento-casa-rosa", alt: "Techo de estacionamiento en voladizo instalado frente a una casa en Valencia", w: 1672, h: 941 },
   { file: "porton-negro-horizontal", alt: "Portón negro con líneas horizontales", w: 941, h: 1672 },
   { file: "pergola-negra-patio-piscina", alt: "Pérgola negra instalada sobre patio con piscina", w: 1087, h: 1446 },

@@ -4,7 +4,7 @@ Datos listos para copiar/pegar en **Perfil de Negocio → Productos → Añadir 
 
 > **Nota sobre el precio:** Google pide el precio en VES (bolívares), pero nuestros precios de referencia están en USD porque es como se maneja el negocio. Antes de publicar cada producto, convertí el monto en USD a VES a la tasa del día (BCV o la que uses) — o dejá el campo de precio vacío (es opcional) y mencioná el precio en USD dentro de la descripción, como está armado abajo.
 
-> **Nota sobre la URL:** mientras no tengamos páginas dedicadas por producto, usá el link al catálogo en la web: `https://tallerherreriavalencia.com/#catalogo` en los 4. Cuando creemos las páginas individuales (techos, portones, pérgolas, puertas), actualizamos cada una con su URL propia.
+> **Nota sobre la URL:** mientras no tengamos páginas dedicadas por producto, usá el link al catálogo en la web: `https://tallerherreriavalencia.com/#catalogo` en todos. Cuando creemos las páginas individuales (techos, portones, pérgolas, puertas), actualizamos cada una con su URL propia.
 
 ---
 
@@ -71,7 +71,7 @@ Pérgola para terraza a medida
 ```
 Pérgola metálica a medida para darle sombra a tu terraza o patio en Valencia, Carabobo. Diseños modernos, perfilería tratada contra el óxido y disponible en diferentes colores. El precio incluye fabricación, pintura e instalación, con montaje en menos de 7 días.
 
-Desde $2.290 por pérgola.
+Desde $2.290 por pérgola, aprox. $190 por m².
 
 Perfecta para espacios de descanso, comedores exteriores o áreas de piscina. Coordinamos la visita de medición y te damos el presupuesto por WhatsApp sin costo.
 ```
@@ -104,6 +104,54 @@ Trabajamos casas, locales y condominios en Valencia, Maracay y Caracas. Presupue
 
 ---
 
+## 5. Parrillera de pared
+
+**Nombre del producto:**
+```
+Parrillera de pared en hierro negro
+```
+
+**Categoría:** Parrilleras
+
+**Precio:** dejar vacío (el precio va en la descripción)
+
+**Descripción:**
+```
+Desde $230 (pago en divisas). Reservas abiertas para entrega a partir de enero.
+
+Parrillera aérea de pared, 100% hierro negro en lámina calibre 1,4 mm. Parrilla en malla expandida de 1", gaveta de carbón, gaveta de recolección de cenizas y ganchos de fijación. Medidas: 50 cm de ancho × 40 cm de profundidad, 1,10 m de alto. Pintura de alta temperatura.
+
+Taller de herrería en Valencia, Carabobo, desde 1994. Reserva la tuya por WhatsApp.
+```
+
+**URL:** `https://tallerherreriavalencia.com/#catalogo`
+
+---
+
+## 6. Parrillera en V
+
+**Nombre del producto:**
+```
+Parrillera en V con mesa de madera
+```
+
+**Categoría:** Parrilleras
+
+**Precio:** dejar vacío (el precio va en la descripción)
+
+**Descripción:**
+```
+Desde $390 (pago en divisas). Reservas abiertas para entrega a partir de enero.
+
+Parrillera de mesa con estructura en V de tubo 2"x2", cajón en lámina calibre 2 mm, parrilla en cabilla cuadrada de 1/2" y mesa en madera de pino. Estructura pintada.
+
+Taller de herrería en Valencia, Carabobo, desde 1994. Reserva la tuya por WhatsApp.
+```
+
+**URL:** `https://tallerherreriavalencia.com/#catalogo`
+
+---
+
 ## Foto para cada producto
 
 Usá una foto real y nítida de cada trabajo — están todas en `public/images/` del proyecto:
@@ -114,5 +162,7 @@ Usá una foto real y nítida de cada trabajo — están todas en `public/images/
 | Puerta de seguridad | `puerta-seguridad-geometrica-marron.webp` |
 | Pérgola para terraza | `pergola-negra-patio-piscina.webp` |
 | Portón de estacionamiento | `porton-negro-horizontal.webp` |
+| Parrillera de pared | `parrillera-pared.webp` |
+| Parrillera en V | `parrillera-en-v.webp` |
 
 Son las mismas fotos que ya usa el sitio en el catálogo, así que la ficha de Google y la web se ven consistentes.
