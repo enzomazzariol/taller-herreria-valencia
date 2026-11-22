@@ -26,6 +26,19 @@ export const heroSlides = [
 
 export const productos = [
   {
+    nombre: "Parrillera de pared", tipo: "Parrilleras", img: imageUrl("parrillera-pared"),
+    tarifas: [{ q: "50 × 40 cm, alto 1,10 m", v: "Desde $230" }],
+    incluye: ["100% hierro negro, lámina de 1,4 mm", "Parrilla en malla expandida de 1\"", "Gaveta de carbón y de cenizas", "Ganchos de fijación a la pared", "Pintura de alta temperatura", "Entrega en unos 20 días"],
+    wa: waLink("Hola! Quisiera un presupuesto para una parrillera de pared."),
+  },
+  {
+    // ponytail: precio pendiente, cambiar v por "Desde $X" cuando lo pase el cliente
+    nombre: "Parrillera en V", tipo: "Parrilleras", img: imageUrl("parrillera-en-v"),
+    tarifas: [{ q: "1 parrillera", v: "Pedir presupuesto" }],
+    incluye: ["Diseño en V de hierro negro", "Mesón de apoyo en madera", "Parrilla con asas", "Fabricada a medida"],
+    wa: waLink("Hola! Quisiera un presupuesto para una parrillera en V."),
+  },
+  {
     nombre: "Techo estacionamiento", tipo: "Estacionamiento", img: imageUrl("techo-estacionamiento-casa-rosa"),
     tarifas: [
       { q: "1 vehículo", v: "Desde $1.590" },
@@ -43,7 +56,10 @@ export const productos = [
   },
   {
     nombre: "Pérgola para terraza", tipo: "Terraza", img: imageUrl("pergola-negra-patio-piscina"),
-    tarifas: [{ q: "1 pérgola", v: "Desde $2.290" }],
+    tarifas: [
+      { q: "1 pérgola", v: "Desde $2.290" },
+      { q: "Por metro cuadrado", v: "≈ $190/m²" },
+    ],
     incluye: ["Diseños modernos", "Perfilería tratada contra el óxido", "Disponible en diferentes colores", "Instalación", "Pintura", "Instalación en menos de 7 días"],
     wa: waLink("Hola! Quisiera un presupuesto para una pérgola."),
   },
@@ -77,6 +93,8 @@ export const pilares = [
 // para que el navegador reserve el espacio antes de cargar la imagen (evita que la
 // galería en columnas "salte"/reordene mientras las fotos van cargando).
 export const galeria = [
+  { file: "parrillera-pared", alt: "Parrillera de pared en hierro negro con campana y chimenea", w: 1086, h: 1448 },
+  { file: "parrillera-en-v", alt: "Parrillera en V de hierro negro con mesón de madera en terraza", w: 1065, h: 1280 },
   { file: "techo-estacionamiento-casa-rosa", alt: "Techo de estacionamiento en voladizo instalado frente a una casa en Valencia", w: 1672, h: 941 },
   { file: "porton-negro-horizontal", alt: "Portón negro con líneas horizontales", w: 941, h: 1672 },
   { file: "pergola-negra-patio-piscina", alt: "Pérgola negra instalada sobre patio con piscina", w: 1087, h: 1446 },
@@ -110,7 +128,11 @@ export const faqs = [
   { q: "¿Cuánto tarda el trabajo?", a: "La mayoría de los techos, portones y puertas quedan instalados en menos de 7 días desde que cierras el presupuesto." },
   { q: "¿El presupuesto tiene costo?", a: "No. Medimos en sitio y cotizamos sin cargo." },
   { q: "¿Qué incluye el precio?", a: "Fabricación a medida, pintura en el color que elijas e instalación con nuestro equipo." },
+  { q: "¿Cuánto cuesta un portón metálico?", a: "Depende de las medidas, el modelo y la ciudad donde se instala, por eso no damos precio por metro cuadrado. Como referencia, arrancan desde $1.690. Mándanos medidas y una foto del espacio por WhatsApp y te cotizamos sin costo." },
+  { q: "¿Cuánto cuesta una pérgola por metro cuadrado?", a: "Aproximadamente $190 por metro cuadrado, con fabricación, pintura e instalación incluidas. El precio final depende del diseño y la medida real." },
   { q: "¿Y si tengo más de dos vehículos?", a: "Desde tres puestos el precio se calcula según la medida real del área. Escríbenos y lo revisamos contigo." },
   { q: "¿Instalan fuera de Valencia?", a: "Sí: todo Carabobo, Maracay y Caracas. Para esas zonas coordinamos la visita de medición por WhatsApp." },
-  { q: "¿De qué material trabajan?", a: "Techos y pérgolas en lámina de aluminio sobre estructura metálica tratada contra el óxido." },
+  { q: "¿Dónde está el taller?", a: "Somos herreros en Valencia, Carabobo, desde 1994. El taller está en Calle 94 Cantaura, Valencia 2001. Atendemos de lunes a sábado de 8:00 a 17:00." },
+  { q: "¿Cómo se paga?", a: "Pago en divisas. Las piezas se fabrican contra pedido; los detalles los acordamos por WhatsApp al cerrar el presupuesto." },
+  { q: "¿De qué material trabajan?", a: "Techos y pérgolas en lámina de aluminio sobre estructura metálica tratada contra el óxido. Parrilleras en hierro negro con pintura de alta temperatura." },
 ];

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { productos, faqs } from "../data/site";
 
 interface Props {
   title: string;
@@ -9,7 +10,7 @@ interface Props {
 
 const {
   title,
-  description = "Techos de estacionamiento, portones, pérgolas y puertas de seguridad hechos a medida en Valencia, Carabobo. Taller propio desde 1994, presupuesto sin costo por WhatsApp.",
+  description = "Herreros en Valencia, Carabobo: techos de estacionamiento, portones, pérgolas, puertas de seguridad y parrilleras a medida. Taller propio desde 1994, presupuesto sin costo por WhatsApp.",
   image = "/og-image.jpg",
 } = Astro.props;
 
@@ -24,6 +25,9 @@ const localBusinessSchema = {
   alternateName: "Flamingo Services",
   image: ogImageURL.toString(),
   telephone: "+584244715866",
+  description,
+  foundingDate: "1994",
+  knowsAbout: ["Herrería", "Techos de estacionamiento", "Portones", "Pérgolas", "Puertas de seguridad", "Parrilleras"],
   priceRange: "$$",
   address: {
     "@type": "PostalAddress",
@@ -55,6 +59,34 @@ const localBusinessSchema = {
     "https://www.facebook.com/profile.php?id=61554200556790",
   ],
   url: canonicalURL.toString(),
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Catálogo de herrería",
+    itemListElement: productos.map(p => {
+      // "Desde $1.590" -> 1590; sin precio ("Pedir presupuesto") no lleva price.
+      const price = p.tarifas[0].v.match(/\$([\d.]+)/)?.[1].replace(/\./g, "");
+      return {
+        "@type": "Offer",
+        ...(price && { price, priceCurrency: "USD" }),
+        itemOffered: {
+          "@type": "Product",
+          name: p.nombre,
+          image: new URL(p.img, Astro.site).toString(),
+          description: p.incluye.join(". ") + ".",
+        },
+      };
+    }),
+  },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(f => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
 };
 ---
 
@@ -86,6 +118,7 @@ const localBusinessSchema = {
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4ZM5S9YCL5"></script>
