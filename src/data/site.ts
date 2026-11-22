@@ -28,15 +28,15 @@ export const productos = [
   {
     nombre: "Parrillera de pared", tipo: "Parrilleras", img: imageUrl("parrillera-pared"),
     tarifas: [{ q: "50 × 40 cm, alto 1,10 m", v: "Desde $230" }],
-    incluye: ["100% hierro negro, lámina de 1,4 mm", "Parrilla en malla expandida de 1\"", "Gaveta de carbón y de cenizas", "Ganchos de fijación a la pared", "Pintura de alta temperatura", "Entrega en unos 20 días"],
-    wa: waLink("Hola! Quisiera un presupuesto para una parrillera de pared."),
+    incluye: ["100% hierro negro, lámina de 1,4 mm", "Parrilla en malla expandida de 1\"", "Gaveta de carbón y de cenizas", "Ganchos de fijación a la pared", "Pintura de alta temperatura", "Pedidos para entrega a partir de enero"],
+    wa: waLink("Hola! Quisiera reservar una parrillera de pared para enero."),
   },
   {
     // ponytail: precio pendiente, cambiar v por "Desde $X" cuando lo pase el cliente
     nombre: "Parrillera en V", tipo: "Parrilleras", img: imageUrl("parrillera-en-v"),
     tarifas: [{ q: "1 parrillera", v: "Pedir presupuesto" }],
-    incluye: ["Diseño en V de hierro negro", "Mesón de apoyo en madera", "Parrilla con asas", "Fabricada a medida"],
-    wa: waLink("Hola! Quisiera un presupuesto para una parrillera en V."),
+    incluye: ["Diseño en V de hierro negro", "Mesón de apoyo en madera", "Parrilla con asas", "Pedidos para entrega a partir de enero"],
+    wa: waLink("Hola! Quisiera reservar una parrillera en V para enero."),
   },
   {
     nombre: "Techo estacionamiento", tipo: "Estacionamiento", img: imageUrl("techo-estacionamiento-casa-rosa"),
