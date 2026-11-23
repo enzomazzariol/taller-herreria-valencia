@@ -62,19 +62,23 @@ const localBusinessSchema = {
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Catálogo de herrería",
-    itemListElement: productos.map(p => {
-      // "Desde $1.590" -> 1590; sin precio ("Pedir presupuesto") no lleva price.
+    // Google exige offers con precio dentro de cada Product: sin precio ("Pedir presupuesto") el producto no entra al schema.
+    itemListElement: productos.flatMap(p => {
+      // "Desde $1.590" -> 1590
       const price = p.tarifas[0].v.match(/\$([\d.]+)/)?.[1].replace(/\./g, "");
-      return {
-        "@type": "Offer",
-        ...(price && { price, priceCurrency: "USD" }),
-        itemOffered: {
-          "@type": "Product",
-          name: p.nombre,
-          image: new URL(p.img, Astro.site).toString(),
-          description: p.incluye.join(". ") + ".",
+      if (!price) return [];
+      return [{
+        "@type": "Product",
+        name: p.nombre,
+        image: new URL(p.img, Astro.site).toString(),
+        description: p.incluye.join(". ") + ".",
+        offers: {
+          "@type": "Offer",
+          price,
+          priceCurrency: "USD",
+          availability: "https://schema.org/MadeToOrder",
         },
-      };
+      }];
     }),
   },
 };
