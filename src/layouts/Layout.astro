@@ -72,12 +72,9 @@ const localBusinessSchema = {
         name: p.nombre,
         image: new URL(p.img, Astro.site).toString(),
         description: p.incluye.join(". ") + ".",
-        offers: {
-          "@type": "Offer",
-          price,
-          priceCurrency: "USD",
-          availability: "https://schema.org/MadeToOrder",
-        },
+        brand: { "@type": "Brand", name: "Flamingo Services" },
+        // ponytail: sin shippingDetails/returnPolicy: son avisos de Merchant listings (tienda online), no aplican a fabricación a medida con instalación.
+        offers: { "@type": "Offer", price, priceCurrency: "USD" },
       }];
     }),
   },
